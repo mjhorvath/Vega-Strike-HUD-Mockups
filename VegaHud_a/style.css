@@ -1,7 +1,7 @@
 div
 {font-family:Verdana,sans-serif;font-size:8pt;font-weight:normal;cursor:default;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;display:inline-block;}
 body
-{background:#000000 url(images/vegastrike040_013.jpg);}
+{background:#404040;margin:0;color:#ffffff;}
 
 .but_tab_on
 {background:url(images/but_tab_on.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;width:64px;height:17px;}

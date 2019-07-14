@@ -1,0 +1,17 @@
+KEYBOARD INPUT
+
+Keyboard input is much the same as VegaStrike HUD Mockup A. The difference is 
+that some of the VDUs have been moved around. For instance, the "Specs" VDU has 
+been moved to the center-left; and the "(Issue) Order" VDU has been moved to 
+the center-right.
+
+MINIMAL HUD MODE
+
+Since many of the smaller indicators (match speed, auto targeting, groups, 
+etc.) are still missing in this mockup, there is no minimal HUD mode. The HUD 
+also looks a bit more sparse than the others as a result.
+
+TOOLTIPS
+
+Some of the HUD elements have associated tooltips that can be viewed by 
+hovering the mouse over the item.

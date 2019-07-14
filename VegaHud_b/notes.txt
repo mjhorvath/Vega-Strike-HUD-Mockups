@@ -1,5 +1,15 @@
-Use "dsp_radar2.png"; but, create a mask so that it blends into the background.
-Images should be converted from 8-bit to 32-bit transparency, where needed.
-Use vector graphics (SVG) wherever possible.
-Scroll-bars should be 16px wide.
-Create a display for attitude, as well.
+NOTES/TO DO
+- Use "dsp_radar2.png"; but, create a mask so that it blends into the background.
+- Images should be converted from 8-bit to 32-bit transparency, where needed.
+- Use vector graphics (SVG) wherever possible.
+- Scroll-bars should be 16px wide.
+- Create a display for attitude, as well.
+- Text-input is 10pt Tahoma regular. Panel titles are 12pt Verdana bold. Button 
+  icons are usually 16pt Webdings or Wingdings regular. Most everything else is 
+  Haettenschweiler.
+- Icons can't be antialiased for display on the web. But they should be for the 
+  game (actually, in the ideal case, the icons should be of a simple enough 
+  design that antialiasing isn't necessary).
+- Need to work on the crosshairs, lead indicator, missle-lock LEDs/buttons, and 
+  armor % displays.
+- Damage display should light up when receiving damage.
