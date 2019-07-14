@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 -768 1024 768" width="1024" height="768">
+	<title>VegaStrike HUD Mockup C</title>
+	<desc></desc>
+	<style type="text/css"></style>
+	<script type="text/ecmascript">
+	<![CDATA[
+var vduTable = [0,0,1,1,1,0,0]
+
+function toggle_vdu(vduNumber, tabNumber, canClose)
+{
+	if (canClose)
+	{
+		if (vduTable[vduNumber] == 0)
+		{
+			vduTable[vduNumber] = 1
+			document.getElementById('vdu_' + vduNumber).style.display = 'block'
+		}
+		var this_button = document.getElementById('but_' + vduNumber + '_close')
+		this_button.setAttribute('fill', '#020')
+		this_button.setAttribute('stroke', '#020')
+	}
+	for (var i = 1, n = 3 + canClose; i <= n; i++)
+	{
+		var this_button = document.getElementById('but_' + vduNumber + '_' + i)
+		var this_image = document.getElementById('vdu_' + vduNumber + '_' + i)
+		if (i == tabNumber)
+		{
+			this_button.setAttribute('fill', '#040')
+			this_button.setAttribute('stroke', '#040')
+			this_image.style.display = 'block'
+		}
+		else
+		{
+			this_button.setAttribute('fill', '#020')
+			this_button.setAttribute('stroke', '#020')
+			this_image.style.display = 'none'
+		}
+	}
+}
+
+function close_vdu(vduNumber)
+{
+	vduTable[vduNumber] = 0
+	document.getElementById('vdu_' + vduNumber).style.display = 'none'
+	for (var i = 1; i <= 4; i++)
+	{
+		var this_button = document.getElementById('but_' + vduNumber + '_' + i)
+		var this_image = document.getElementById('vdu_' + vduNumber + '_' + i)
+		this_button.setAttribute('fill', '#020')
+		this_button.setAttribute('stroke', '#020')
+		this_image.style.display = 'none'
+	}
+	this_button = document.getElementById('but_' + vduNumber + '_close')
+	this_button.setAttribute('fill', '#040')
+	this_button.setAttribute('stroke', '#040')
+}
+
+function show_tooltip(evt, message_string)
+{
+	var move_box = document.getElementById('move_box')
+	move_box.style.display = 'block'
+	move_box.firstChild.nodeValue = message_string
+}
+
+function hide_tooltip(evt, message_string)
+{
+	var move_box = document.getElementById('move_box')
+	move_box.style.display = 'none'
+	move_box.firstChild.nodeValue = ''
+}
+	]]>
+	</script>
+	<linearGradient id="grd_thr" gradientUnits="userSpaceOnUse" x1="0" y1="-128" x2="0" y2="-256">
+		<stop offset="0" style="stop-color:#040"/>
+		<stop offset="1" style="stop-color:#0f0"/>
+	</linearGradient>
+	<linearGradient id="grd_tur" gradientUnits="userSpaceOnUse" x1="0" y1="-128" x2="0" y2="-256">
+		<stop offset="0" style="stop-color:#240"/>
+		<stop offset="1" style="stop-color:#8f0"/>
+	</linearGradient>
+	<linearGradient id="grd_pow" gradientUnits="userSpaceOnUse" x1="0" y1="-128" x2="0" y2="-256">
+		<stop offset="0" style="stop-color:#400"/>
+		<stop offset="1" style="stop-color:#f00"/>
+	</linearGradient>
+	<linearGradient id="grd_hea" gradientUnits="userSpaceOnUse" x1="0" y1="-128" x2="0" y2="-256">
+		<stop offset="0" style="stop-color:#420"/>
+		<stop offset="1" style="stop-color:#f80"/>
+	</linearGradient>
+	<image x="0" y="-768" width="1024" height="768" xlink:href="vegastrike040_013.jpg"/>
+	<g id="hud">
+		<!-- bottom left -->
+		<path d="M 343.42954 -112 A 320 320 0 0,1 198.46531 -320 L 256 -320 A 256 256 0 0,0 362.76194 -112 L 343.42954 -112 Z" fill="url(#grd_thr)" opacity="0.5" stroke="url(#grd_thr)" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Thrust')" onmouseout="hide_tooltip(evt)"/>
+		<path d="M 342.67192 -128 A 256 256 0 0,1 260.54026 -272 L 304 -272 A 208 208 0 0,0 361.90670 -128 L 342.67192 -128 Z" fill="url(#grd_tur)" opacity="0.5" stroke="url(#grd_tur)" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Turbo')" onmouseout="hide_tooltip(evt)"/>
+<!--
+		<circle cx="368" cy="-160" r="8" fill="#080" stroke="#080" stroke-width="0px" opacity="0.5" onmouseover="show_tooltip(evt, 'Match Speed')" onmouseout="hide_tooltip(evt)"/>
+		<circle cx="352" cy="-192" r="8" fill="#080" stroke="#080" stroke-width="0px" opacity="0.5"/>
+-->
+		<!-- bottom right -->
+		<path d="M 680.57046 -112 A 320 320 0 0,0 825.53469 -320 L 768 -320 A 256 256 0 0,1 661.23806 -112 L 680.57046 -112 Z" fill="url(#grd_pow)" opacity="0.5" stroke="url(#grd_pow)" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Energy')" onmouseout="hide_tooltip(evt)"/>
+		<path d="M 681.32808 -128 A 256 256 0 0,0 763.45974 -272 L 720 -272 A 208 208 0 0,1 662.09330 -128 L 681.32808 -128 Z" fill="url(#grd_hea)" opacity="0.5" stroke="url(#grd_hea)" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Heat')" onmouseout="hide_tooltip(evt)"/>
+<!--
+		<circle cx="656" cy="-160" r="8" fill="#800" stroke="#800" stroke-width="0px" opacity="0.5" onmouseover="show_tooltip(evt, 'Auto Target')" onmouseout="hide_tooltip(evt)"/>
+		<circle cx="672" cy="-192" r="8" fill="#800" stroke="#800" stroke-width="0px" opacity="0.5"/>
+-->
+		<!-- top left -->
+		<path d="M 412.08003 -688 A 320 320 0 0,0 268.82105 -592 L 300.33990 -592 A 192 192 0 0,1 422.91577 -688 L 412.08003 -688 Z" fill="#f00" opacity="0.5" stroke="#f00" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Missile Lock')" onmouseout="hide_tooltip(evt)"/>
+<!--
+		<path d="M 435.26670 -688 A 192 192 0 0,0 356.05129 -624 L 373.43594 -624 A 160 160 0 0,1 442.25762 -688 L 435.26670 -688 Z" fill="#ff0" opacity="0.5" stroke="#ff0" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Missile Warning')" onmouseout="hide_tooltip(evt)"/>
+-->
+		<!-- top right -->
+		<path d="M 611.91997 -688 A 320 320 0 0,1 755.17895 -592 L 723.66010 -592 A 192 192 0 0,0 601.08423 -688 L 611.91997 -688 Z" fill="#f00" opacity="0.5" stroke="#f00" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Missile Lock')" onmouseout="hide_tooltip(evt)"/>
+<!--
+		<path d="M 588.73330 -688 A 192 192 0 0,1 667.94871 -624 L 650.56406 -624 A 160 160 0 0,0 581.74248 -688 L 588.73330 -688 Z" fill="#ff0" opacity="0.5" stroke="#ff0" stroke-linejoin="round" stroke-width="2px" onmouseover="show_tooltip(evt, 'Missile Warning')" onmouseout="hide_tooltip(evt)"/>
+-->
+		<circle cx="512" cy="-384" r="352" fill="none" stroke="#040" stroke-width="2px" opacity="0.5"/>
+		<line x1="496" y1="-384" x2="528" y2="-384" stroke="#040" stroke-linecap="round" stroke-width="2px" opacity="0.5"/>
+		<line x1="512" y1="-368" x2="512" y2="-400" stroke="#040" stroke-linecap="round" stroke-width="2px" opacity="0.5"/>
+		<path d="M 512 -760 L 496 -744 L 528 -744 L 512 -760 Z" fill="#f00" opacity="0.5" stroke="#f00" stroke-linejoin="round" stroke-linecap="round" stroke-width="2px" transform="rotate(40 512 -384)" onmouseover="show_tooltip(evt, 'Current Hostile Target')" onmouseout="hide_tooltip(evt)"/>
+		<circle cx="512" cy="-720" r="3" fill="none" stroke="#ff0" stroke-linecap="round" stroke-width="1px" opacity="0.5" transform="rotate(60 512 -384)" onmouseover="show_tooltip(evt, 'Launched Missile')" onmouseout="hide_tooltip(evt)"/>
+		<path d="M 528 -744 L 512 -760 L 496 -744" fill="none" opacity="0.5" stroke="#f00" stroke-linejoin="round" stroke-linecap="round" stroke-width="2px" transform="rotate(80 512 -384)" onmouseover="show_tooltip(evt, 'Other Hostile Target')" onmouseout="hide_tooltip(evt)"/>
+		<path d="M 528 -744 L 512 -760 L 496 -744" fill="none" opacity="0.5" stroke="#ff0" stroke-linejoin="round" stroke-linecap="round" stroke-width="2px" transform="rotate(90 512 -384)" onmouseover="show_tooltip(evt, 'Other Neutral Target')" onmouseout="hide_tooltip(evt)"/>
+<!--
+		<path d="M 613.42838 -166.48613 L 626.95217 -137.48428 A 272 272 0 0,0 668.01279 -161.19064 L 649.65834 -187.40351 A 240 240 0 0,1 613.42838 -166.48613"/>
+-->
+		<path d="M -48 0 L 0 -48 L 48 0 L 0 48 L -48 0 Z" fill="none" stroke="#f00" stroke-linejoin="round" stroke-linecap="round" stroke-width="2px" opacity="0.5" transform="translate(640 -448)" onmouseover="show_tooltip(evt, 'Target Indicator')" onmouseout="hide_tooltip(evt)"/>
+		<g onmouseover="show_tooltip(evt, 'Lead Indicator')" onmouseout="hide_tooltip(evt)">
+			<circle cx="0" cy="0" r="16" fill="none" stroke="#080" stroke-linejoin="round" stroke-linecap="round" stroke-width="2px" stroke-dasharray="10 10" opacity="0.5" transform="translate(576 -320)"/>
+			<circle cx="0" cy="0" r="2" fill="#080" stroke="none" opacity="0.5" transform="translate(448 -320)"/>
+		</g>
+	</g>
+	<g id="radar" onmouseover="show_tooltip(evt, '3D Radar')" onmouseout="hide_tooltip(evt)">
+		<path d="M 512 -192 A 96 96 0 0,1 512 0 A 96 96 0 0,1 512 -192" fill="none" opacity="0.5" stroke="#440" stroke-width="4px" stroke-dasharray="10 10"/>
+		<path d="M 512 -192 A 48 96 0 0,1 512 0 A 48 96 0 0,1 512 -192" fill="none" opacity="0.5" stroke="#440" stroke-width="4px" stroke-dasharray="10 10"/>
+		<path d="M 416 -96 A 96 48 0 0,1 608 -96 A 96 48 0 0,1 416 -96" fill="none" opacity="0.5" stroke="#440" stroke-width="4px" stroke-dasharray="10 10"/>
+	</g>
+	<g id="vdu_2" onmouseover="show_tooltip(evt, 'VDU 2')" onmouseout="hide_tooltip(evt)">
+		<rect x="128" y="-768" width="768" height="160" fill="#040" opacity="0.5" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<path d="M 128 -768 L 896 -768 L 896 -608 L 823.89742 -608 A 384 384 0 0,0 200.10258 -608 L 128 -608 Z" fill="#040" opacity="0.5" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<image id="vdu_2_1" x="128" y="-768" width="768" height="160" xlink:href="vdu_2_1.png" opacity="0.5"/>
+	</g>
+	<g id="vdu_3" onmouseover="show_tooltip(evt, 'VDU 3')" onmouseout="hide_tooltip(evt)">
+		<rect x="0" y="-256" width="256" height="256" fill="#040" opacity="0.5" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<path d="M 0 0 L 0 -256 L 149.96133 -256 A 384 384 0 0,0 256 -97.7833 L 256 0 Z" fill="#040" opacity="0.5" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<image id="vdu_3_1" x="0" y="-256" width="256" height="256" xlink:href="vdu_3_1.png" opacity="0.5"/>
+		<image id="vdu_3_2" x="0" y="-256" width="256" height="256" xlink:href="vdu_3_2.png" opacity="0.5" style="display:none;"/>
+		<g id="vdu_3_3" style="display:none;" transform="scale(0.75) translate(32 -32)">
+			<path d="M 45.72319 -226.05369 L 66.29239 -201.54027 A 96 96 0 0,1 189.70761 -201.54027 L 210.27681 -226.05369 A 128 128 0 0,0 45.72319 -226.05369 Z" fill="#080" opacity="0.5" stroke="#080" stroke-linejoin="round" stroke-width="4px"/>
+			<path d="M 45.72319 -226.05369 L 66.29239 -201.54027 A 96 96 0 0,1 189.70761 -201.54027 L 210.27681 -226.05369 A 128 128 0 0,0 45.72319 -226.05369 Z" fill="#080" opacity="0.5" stroke="#080" stroke-linejoin="round" stroke-width="4px" transform="rotate(90 128 -128)"/>
+			<path d="M 45.72319 -226.05369 L 66.29239 -201.54027 A 96 96 0 0,1 189.70761 -201.54027 L 210.27681 -226.05369 A 128 128 0 0,0 45.72319 -226.05369 Z" fill="#080" opacity="0.5" stroke="#080" stroke-linejoin="round" stroke-width="4px" transform="rotate(180 128 -128)"/>
+			<path d="M 45.72319 -226.05369 L 66.29239 -201.54027 A 96 96 0 0,1 189.70761 -201.54027 L 210.27681 -226.05369 A 128 128 0 0,0 45.72319 -226.05369 Z" fill="#080" opacity="0.5" stroke="#080" stroke-linejoin="round" stroke-width="4px" transform="rotate(270 128 -128)"/>
+			<path d="M 128 -214.4 L 94.74462 -156.8 L 161.25538 -156.8 Z" fill="#880" opacity="0.5" stroke="#880" stroke-linejoin="round" stroke-width="4px"/>
+			<path d="M 86.43078 -142.4 L 53.17541 -84.8 L 119.68616 -84.8 Z" fill="#880" opacity="0.5" stroke="#880" stroke-linejoin="round" stroke-width="4px"/>
+			<path d="M 169.56922 -142.4 L 136.31384 -84.8 L 202.82459 -84.8 Z" fill="#880" opacity="0.5" stroke="#880" stroke-linejoin="round" stroke-width="4px"/>
+			<path d="M 94.74462 -147.2 L 128 -89.6 L 161.25538 -147.2 Z" fill="#880" opacity="0.5" stroke="#880" stroke-linejoin="round" stroke-width="4px"/>
+		</g>
+	</g>
+	<g id="vdu_4" onmouseover="show_tooltip(evt, 'VDU 4')" onmouseout="hide_tooltip(evt)">
+		<rect x="768" y="-256" width="256" height="256" fill="#040" opacity="0.5" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<path d="M 1024 0 L 1024 -256 L 874.03867 -256 A 384 384 0 0,1 768 -97.7833 L 768 0 Z" fill="#040" opacity="0.5" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<image id="vdu_4_1" x="768" y="-256" width="256" height="256" xlink:href="vdu_4_1.png" opacity="0.5"/>
+		<image id="vdu_4_2" x="768" y="-256" width="256" height="256" xlink:href="vdu_4_2.png" opacity="0.5" style="display:none;"/>
+		<image id="vdu_4_3" x="768" y="-256" width="256" height="256" xlink:href="vdu_4_3.png" opacity="0.5" style="display:none;"/>
+	</g>
+	<g id="buttons">
+		<rect id="but_5_1" x="60" y="-544" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_5_2" x="60" y="-496" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_5_3" x="60" y="-448" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_5_4" x="60" y="-400" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_5_close" x="60" y="-352" width="28" height="28" fill="#040" opacity="0.75" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_6_1" x="936" y="-544" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_6_2" x="936" y="-496" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_6_3" x="936" y="-448" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_6_4" x="936" y="-400" width="28" height="40" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="8px"/>
+		<rect id="but_6_close" x="936" y="-352" width="28" height="28" fill="#040" opacity="0.75" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<image x="60" y="-544" width="28" height="40" xlink:href="but_vdu_5_1.png" opacity="0.75" onclick="toggle_vdu(5, 1, 1)" onmouseover="show_tooltip(evt, 'Cargo')" onmouseout="hide_tooltip(evt)"/>
+		<image x="60" y="-496" width="28" height="40" xlink:href="but_vdu_5_2.png" opacity="0.75" onclick="toggle_vdu(5, 2, 1)" onmouseover="show_tooltip(evt, 'Weapons')" onmouseout="hide_tooltip(evt)"/>
+		<image x="60" y="-448" width="28" height="40" xlink:href="but_vdu_5_3.png" opacity="0.75" onclick="toggle_vdu(5, 3, 1)" onmouseover="show_tooltip(evt, 'Hangar')" onmouseout="hide_tooltip(evt)"/>
+		<image x="60" y="-400" width="28" height="40" xlink:href="but_vdu_5_4.png" opacity="0.75" onclick="toggle_vdu(5, 4, 1)" onmouseover="show_tooltip(evt, 'Ship Attributes')" onmouseout="hide_tooltip(evt)"/>
+		<image x="60" y="-352" width="28" height="28" xlink:href="but_vdu_5_close.png" opacity="0.75" onclick="close_vdu(5)" onmouseover="show_tooltip(evt, 'Close VDU 5')" onmouseout="hide_tooltip(evt)"/>
+		<image x="936" y="-544" width="28" height="40" xlink:href="but_vdu_6_1.png" opacity="0.75" onclick="toggle_vdu(6, 1, 1)" onmouseover="show_tooltip(evt, 'Mission Tasks')" onmouseout="hide_tooltip(evt)"/>
+		<image x="936" y="-496" width="28" height="40" xlink:href="but_vdu_6_2.png" opacity="0.75" onclick="toggle_vdu(6, 2, 1)" onmouseover="show_tooltip(evt, 'Orders Received')" onmouseout="hide_tooltip(evt)"/>
+		<image x="936" y="-448" width="28" height="40" xlink:href="but_vdu_6_3.png" opacity="0.75" onclick="toggle_vdu(6, 3, 1)" onmouseover="show_tooltip(evt, 'Issue Order')" onmouseout="hide_tooltip(evt)"/>
+		<image x="936" y="-400" width="28" height="40" xlink:href="but_vdu_6_4.png" opacity="0.75" onclick="toggle_vdu(6, 4, 1)" onmouseover="show_tooltip(evt, 'Group Contents')" onmouseout="hide_tooltip(evt)"/>
+		<image x="936" y="-352" width="28" height="28" xlink:href="but_vdu_6_close.png" opacity="0.75" onclick="close_vdu(6)" onmouseover="show_tooltip(evt, 'Close VDU 6')" onmouseout="hide_tooltip(evt)"/>
+		<path id="but_3_1" d="M 4 -296 L 20 -264 L 52 -264 L 36 -296 Z" fill="#040" opacity="0.75" stroke="#040" stroke-linejoin="round" stroke-width="4px"/>
+		<path id="but_3_2" d="M 44 -296 L 60 -264 L 92 -264 L 76 -296 Z" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="4px"/>
+		<path id="but_3_3" d="M 84 -296 L 100 -264 L 132 -264 L 116 -296 Z" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="4px"/>
+		<path id="but_4_1" d="M 908 -296 L 892 -264 L 924 -264 L 940 -296 Z" fill="#040" opacity="0.75" stroke="#040" stroke-linejoin="round" stroke-width="4px"/>
+		<path id="but_4_2" d="M 948 -296 L 932 -264 L 964 -264 L 980 -296 Z" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="4px"/>
+		<path id="but_4_3" d="M 988 -296 L 972 -264 L 1004 -264 L 1020 -296 Z" fill="#020" opacity="0.75" stroke="#020" stroke-linejoin="round" stroke-width="4px"/>
+		<image x="20" y="-296" width="16" height="32" xlink:href="but_vdu_3_1.png" opacity="0.75" onclick="toggle_vdu(3, 1, 0)" onmouseover="show_tooltip(evt, 'Damage')" onmouseout="hide_tooltip(evt)"/>
+		<image x="60" y="-296" width="16" height="32" xlink:href="but_vdu_3_2.png" opacity="0.75" onclick="toggle_vdu(3, 2, 0)" onmouseover="show_tooltip(evt, 'Power')" onmouseout="hide_tooltip(evt)"/>
+		<image x="100" y="-296" width="16" height="32" xlink:href="but_vdu_3_3.png" opacity="0.75" onclick="toggle_vdu(3, 3, 0)" onmouseover="show_tooltip(evt, 'Shield and Damage Graphic')" onmouseout="hide_tooltip(evt)"/>
+		<image x="908" y="-296" width="16" height="32" xlink:href="but_vdu_4_1.png" opacity="0.75" onclick="toggle_vdu(4, 1, 0)" onmouseover="show_tooltip(evt, 'Friendly Target')" onmouseout="hide_tooltip(evt)"/>
+		<image x="948" y="-296" width="16" height="32" xlink:href="but_vdu_4_2.png" opacity="0.75" onclick="toggle_vdu(4, 2, 0)" onmouseover="show_tooltip(evt, 'Enemy Target')" onmouseout="hide_tooltip(evt)"/>
+		<image x="988" y="-296" width="16" height="32" xlink:href="but_vdu_4_3.png" opacity="0.75" onclick="toggle_vdu(4, 3, 0)" onmouseover="show_tooltip(evt, 'NAV Target')" onmouseout="hide_tooltip(evt)"/>
+	</g>
+	<g id="vdu_5" style="display:none;" onmouseover="show_tooltip(evt, 'VDU 5')" onmouseout="hide_tooltip(evt)">
+		<rect x="96" y="-672" width="352" height="576" fill="#040" opacity="0.75" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<image id="vdu_5_1" x="96" y="-672" width="352" height="576" xlink:href="vdu_5_1.png" opacity="0.75"/>
+		<image id="vdu_5_2" x="96" y="-672" width="352" height="576" xlink:href="vdu_5_2.png" opacity="0.75" style="display:none;"/>
+		<image id="vdu_5_3" x="96" y="-672" width="352" height="576" xlink:href="vdu_5_3.png" opacity="0.75" style="display:none;"/>
+		<image id="vdu_5_4" x="96" y="-672" width="352" height="576" xlink:href="vdu_5_4.png" opacity="0.75" style="display:none;"/>
+	</g>
+	<g id="vdu_6" style="display:none;" onmouseover="show_tooltip(evt, 'VDU 6')" onmouseout="hide_tooltip(evt)">
+		<rect x="576" y="-672" width="352" height="576" fill="#040" opacity="0.75" stroke="#040" stroke-linejoin="round" stroke-width="8px"/>
+		<image id="vdu_6_1" x="576" y="-672" width="352" height="576" xlink:href="vdu_6_1.png" opacity="0.75"/>
+		<image id="vdu_6_2" x="576" y="-672" width="352" height="576" xlink:href="vdu_6_2.png" opacity="0.75" style="display:none;"/>
+		<image id="vdu_6_3" x="576" y="-672" width="352" height="576" xlink:href="vdu_6_3.png" opacity="0.75" style="display:none;"/>
+		<image id="vdu_6_4" x="576" y="-672" width="352" height="576" xlink:href="vdu_6_4.png" opacity="0.75" style="display:none;"/>
+	</g>
+</svg>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>VegaStrike HUD Mockup A</title>
+		<link rel="stylesheet" href="style.css" type="text/css" />
+		<script language="javascript" type="text/javascript" src="java/error.js"></script>
+		<script language="javascript" type="text/javascript" src="java/vega.js"></script>
+	</head>
+	<body class="vdu_on" onload="HUD_init();">
+		<div style="position:absolute;top:753px;left:2px;color:#e0e0e0;">CC BY-SA Michael Horvath</div>
+		<!-- VDU 0 always has focus -->
+		<div id="vdu_0" class="vdu_on" style="position:absolute;left:0px;top:0px;width:1024px;height:768px;">
+			<div class="vdu_on" style="position:absolute;left:600px;top:300px;width:128px;height:128px;background:url(images/dsp_target_lock.png);">
+				<div class="twht" style="position:absolute;right:0;bottom:0;">2.0e6</div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:600px;top:0px;width:64px;height:16px;">
+				<div class="twht" style="position:absolute;left:0px;top:0px;width:100%;text-align:center;background:url(images/dsp_distance2.png);">2.0e6</div>
+			</div>
+			<div class="vdu_off" style="position:absolute;left:256px;top:128px;width:512px;height:512px;background:url(images/dsp_center.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:603px;top:289px;width:16px;height:16px;background:url(images/dsp_missle_lock.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:603px;top:475px;width:16px;height:16px;background:url(images/dsp_missle_fired.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:384px;top:616px;width:256px;height:128px;background:url(images/dsp_radar.png);"></div>
+<!--
+			<div id="mir_1" class="vdu_off" style="position:absolute;left:288px;top:16px;width:160px;height:160px;background:url(images/dsp_mirror_lft.png);"></div>
+			<div id="mir_2" class="vdu_off" style="position:absolute;left:576px;top:16px;width:160px;height:160px;background:url(images/dsp_mirror_rgt.png);"></div>
+-->
+			<div class="vdu_on" style="position:absolute;left:400px;top:300px;width:32px;height:32px;background:url(images/dsp_lead.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:384px;top:256px;width:256px;height:256px;background:url(images/dsp_ring.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:496px;top:368px;width:32px;height:32px;background:url(images/dsp_cross.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:376px;top:376px;width:16px;height:16px;background:url(images/dsp_direction2.png);"></div>
+			<div class="vdu_on" style="position:absolute;left:632px;top:376px;width:16px;height:16px;background:url(images/dsp_direction.png);"></div>
+			<div class="vdu_off" style="position:absolute;left:660px;top:608px;width:128px;height:128px;background:url(images/dsp_momentum.png);"></div>
+		</div>
+		<div id="vdu_1" class="vdu_off" style="position:absolute;left:0px;top:0px;width:1024px;height:768px;">
+			<div id="div_hid" style="">
+				<div class="vdu_on" style="position:absolute;left:376px;top:608px;width:272px;height:144px;background:url(images/dsp_radar_out.png);"></div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:940px;top:33px;width:72px;height:152px;">
+				<div id="but_fps" class="but_tab_off" style="position:absolute;left:0px;top:0px;" onclick="butToggle('but_fps')">Options</div>
+				<div id="but_help" class="but_tab_off" style="position:absolute;left:0px;top:19px;" onclick="butToggle('but_help')">Help</div>
+				<div id="but_map" class="but_tab_off" style="position:absolute;left:0px;top:38px;" onclick="butToggle('but_map')">Map</div>
+				<div id="but_save" class="but_tab_off" style="position:absolute;left:0px;top:57px;" onclick="butToggle('but_save')">Save</div>
+				<div id="but_load" class="but_tab_off" style="position:absolute;left:0px;top:76px;" onclick="butToggle('but_load')">Load</div>
+				<div id="but_exit" class="but_tab_off" style="position:absolute;left:0px;top:95px;" onclick="butToggle('but_exit')">Exit</div>
+				<div id="but_tc" class="but_tab_off" style="position:absolute;left:0px;top:114px;" onclick="tcToggle('but_tc')">TC: x1</div>
+				<div id="but_hud" class="but_tab_on" style="position:absolute;left:0px;top:133px;" onclick="hudToggle('but_hud')">HUD: 1</div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:384px;top:256px;width:256px;height:256px;">
+				<div class="but_sml_off" style="position:absolute;left:112px;top:16px;width:32px;height:32px;">25</div>
+				<div class="but_sml_off" style="position:absolute;left:112px;top:224px;width:32px;height:32px;">75</div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:447px;top:200px;width:130px;height:17px;">
+				<div class="but_tab_on" style="position:absolute;left:0px;top:0px;">Detect</div>
+				<div class="but_tab_on" style="position:absolute;left:66px;top:0px;">Target</div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:447px;top:556px;width:130px;height:17px;">
+				<div class="but_tab_off" style="position:absolute;left:0px;top:0px;">Lock</div>
+				<div class="but_tab_off" style="position:absolute;left:66px;top:0px;">Launch</div>
+			</div>
+			<div id="chat_fld" class="vdu_on" style="position:absolute;left:256px;top:580px;width:512px;height:17px;background:url(images/dsp_chat.png);">
+				<div class="twht" style="position:absolute;left:4px;top:2px;width:508px;height:17px;">Text text text text text text text text text text... gggggg_</div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:16px;top:482px;width:196px;height:55px;">
+				<div id="but_hyper" class="but_tab_off" style="position:absolute;left:0px;top:0px;" onclick="butToggle('but_hyper')">Hyper</div>
+				<div id="but_auto" class="but_tab_off" style="position:absolute;left:66px;top:0px;" onclick="butToggle('but_auto')">Auto</div>
+				<div id="but_match" class="but_tab_on" style="position:absolute;left:132px;top:0px;" onclick="butToggle('but_match')">Match</div>
+				<div id="but_sync" class="but_tab_off" style="position:absolute;left:0px;top:19px;" onclick="butToggle('but_sync')">Newton</div>
+				<div id="but_blank1" class="but_tab_off" style="position:absolute;left:66px;top:19px;" onclick="butToggle('but_blank1')">Sync</div>
+				<div id="but_target" class="but_tab_on" style="position:absolute;left:132px;top:19px;" onclick="butToggle('but_target')">Target</div>
+				<div id="but_ecm" class="but_clr_off" style="position:absolute;left:0px;top:38px;" onclick="butToggle('but_ecm')">ECM</div>
+				<div id="but_cloak" class="but_clr_off" style="position:absolute;left:66px;top:38px;" onclick="butToggle('but_cloak')">Cloak</div>
+				<div id="but_chat" class="but_tab_off" style="position:absolute;left:132px;top:38px;" onclick="chatToggle('but_chat')">Chat</div>
+			</div>
+			<div class="vdu_on" style="position:absolute;left:812px;top:482px;width:196px;height:55px;">
+				<div id="but_grp_1" class="but_tab_off" style="position:absolute;left:0px;top:0px;" onclick="grpToggle(1)">1</div>
+				<div id="but_grp_2" class="but_tab_on" style="position:absolute;left:66px;top:0px;" onclick="grpToggle(2)">2</div>
+				<div id="but_grp_3" class="but_tab_off" style="position:absolute;left:132px;top:0px;" onclick="grpToggle(3)">3</div>
+				<div id="but_grp_4" class="but_clr_off" style="position:absolute;left:0px;top:19px;" onclick="grpToggle(4)">4</div>
+				<div id="but_grp_5" class="but_tab_off" style="position:absolute;left:66px;top:19px;" onclick="grpToggle(5)">5</div>
+				<div id="but_grp_6" class="but_tab_off" style="position:absolute;left:132px;top:19px;" onclick="grpToggle(6)">6</div>
+				<div id="but_grp_7" class="but_clr_off" style="position:absolute;left:0px;top:38px;" onclick="grpToggle(7)">7</div>
+				<div id="but_grp_8" class="but_clr_off" style="position:absolute;left:66px;top:38px;" onclick="grpToggle(8)">8</div>
+				<div id="but_grp_9" class="but_clr_off" style="position:absolute;left:132px;top:38px;" onclick="grpToggle(9)">9</div>
+			</div>
+		</div>
+		<div id="vdu_2" class="vdu_off" style="position:absolute;left:16px;top:16px;width:904px;height:168px;">
+			<div id="vdu_2_top" style="position:absolute;left:0px;top:0px;width:210px;height:17px;">
+				<div id="tab_2_1" class="but_tab_off" style="position:absolute;left:0px;top:0px;" onclick="tabToggle(2,1);">Messg</div>
+				<div id="tab_2_2" class="but_tab_off" style="position:absolute;left:66px;top:0px;" onclick="tabToggle(2,2);">Comm</div>
+				<div id="tab_2_3" class="but_tab_off" style="position:absolute;left:132px;top:0px;" onclick="tabToggle(2,3);">Order</div>
+				<div id="tab_2_0" class="but_clo_off" style="position:absolute;left:198px;top:0px;" onclick="tabToggle(2,0);">X</div>
+			</div>
+			<div id="vdu_2_bot" class="vdu_2" style="position:absolute;left:0px;top:16px;width:904px;height:152px;">
+				<div id="pan_2_1" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:894px;height:140px;">
+					<div style="position:absolute;left:0px;top:0px;width:894px;height:16px;"><div class="hed cen bgrn" style="width:56px;">Time</div><div class="hed cen bgrn" style="width:130px;">Origin</div><div class="hed cen bgrn" style="width:708px;">Message</div></div>
+					<div style="position:absolute;left:0px;top:16px;width:892px;height:124px;overflow:auto;">
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:00.00</div><div class="txt tgrn" style="width:130px;">VegaStrike</div><div class="txt tgrn" style="width:688px;">Welcome to Vega Strike! Use Tab to afterburn (+, - cruise control), arrows to steer. The t key targets objects; space fires at them & a pilots there. Time Compression: F9; F10 resets. Buy a jump drive for 10000 fly to a blue ball and press j to warp to a near star. Target a base or planet. When you get close a green box will appear. Inside the box d will land.</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:09.29</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">How are you doing?</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:10.18</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:10.18</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:10.18</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:10.18</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:10.18</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:874px;"><div class="txt cen tgrn" style="width:56px;">00:10.18</div><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:688px;">Flying in shared space, keep your vidcom open.</div></div>
+					</div>
+				</div>
+				<div id="pan_2_2" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:894px;height:140px;">
+					<div style="position:absolute;left:0px;top:0px;width:894px;height:16px;"><div class="hed cen bgrn" style="width:186px;">Recipient</div><div class="hed cen bgrn" style="width:130px;">Origin</div><div class="hed cen bgrn" style="width:392px;">Message</div><div class="hed cen bgrn" style="width:186px;">Comment</div></div>
+					<div style="position:absolute;left:0px;top:16px;width:184px;height:124px;overflow:auto;">
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Friendly Target</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Hostile Target</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Nav Target</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Selected Group</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Highlited Item</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Friendly Leader</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Hostile Leader</div></div>
+					</div>
+					<div style="position:absolute;left:186px;top:16px;width:520px;height:124px;overflow:auto;">
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">How are you doing?</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">How are you doing?</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">How are you doing?</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">How are you doing?</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">Flying in shared space, keep your vidcom open.</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">How are you doing?</div></div>
+						<div style="width:502px;"><div class="txt tgrn" style="width:130px;">Commerce Center</div><div class="txt tgrn" style="width:364px;">Flying in shared space, keep your vidcom open.</div></div>
+					</div>
+					<div style="position:absolute;left:708px;top:16px;width:184px;height:124px;overflow:auto;">
+						<div id="pan_2_2_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,1)" onmouseout="mout_sel('pan',2,2,1)" onclick="mclk_sel('pan',2,2,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:148px;">Hello there!</div></div>
+						<div id="pan_2_2_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,2)" onmouseout="mout_sel('pan',2,2,2)" onclick="mclk_sel('pan',2,2,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:148px;">How's life?</div></div>
+						<div id="pan_2_2_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,3)" onmouseout="mout_sel('pan',2,2,3)" onclick="mclk_sel('pan',2,2,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn" style="width:148px;">We're in shared space, so watch your back.</div></div>
+						<div id="pan_2_2_4" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,4)" onmouseout="mout_sel('pan',2,2,4)" onclick="mclk_sel('pan',2,2,4)"><div class="txt twht" style="width:16px;">4.</div><div class="txt tgrn" style="width:148px;">All systems operational.</div></div>
+						<div id="pan_2_2_5" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,5)" onmouseout="mout_sel('pan',2,2,5)" onclick="mclk_sel('pan',2,2,5)"><div class="txt twht" style="width:16px;">5.</div><div class="txt tgrn" style="width:148px;">What scrapyard did you get that ship from?</div></div>
+						<div id="pan_2_2_6" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,6)" onmouseout="mout_sel('pan',2,2,6)" onclick="mclk_sel('pan',2,2,6)"><div class="txt twht" style="width:16px;">6.</div><div class="txt tgrn" style="width:148px;">Where did you find that laughable excuse for a ship?</div></div>
+						<div id="pan_2_2_7" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,7)" onmouseout="mout_sel('pan',2,2,7)" onclick="mclk_sel('pan',2,2,7)"><div class="txt twht" style="width:16px;">7.</div><div class="txt tgrn" style="width:148px;">What's this? A smuggler flown off of normal space lanes.</div></div>
+						<div id="pan_2_2_8" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,8)" onmouseout="mout_sel('pan',2,2,8)" onclick="mclk_sel('pan',2,2,8)"><div class="txt twht" style="width:16px;">8.</div><div class="txt tgrn" style="width:148px;">Everybody who has ever fought me has died!</div></div>
+						<div id="pan_2_2_9" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,9)" onmouseout="mout_sel('pan',2,2,9)" onclick="mclk_sel('pan',2,2,9)"><div class="txt twht" style="width:16px;">9.</div><div class="txt tgrn" style="width:148px;">Abandon your ship. I'm taking this thing over.</div></div>
+						<div id="pan_2_2_10" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,10)" onmouseout="mout_sel('pan',2,2,10)" onclick="mclk_sel('pan',2,2,10)"><div class="txt twht" style="width:16px;">a.</div><div class="txt tgrn" style="width:148px;">Request Docking Clearance</div></div>
+						<div id="pan_2_2_11" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,11)" onmouseout="mout_sel('pan',2,2,11)" onclick="mclk_sel('pan',2,2,11)"><div class="txt twht" style="width:16px;">b.</div><div class="txt tgrn" style="width:148px;">Request Assitance</div></div>
+						<div id="pan_2_2_12" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,12)" onmouseout="mout_sel('pan',2,2,12)" onclick="mclk_sel('pan',2,2,12)"><div class="txt twht" style="width:16px;">c.</div><div class="txt tgrn" style="width:148px;">Request Trade</div></div>
+						<div id="pan_2_2_13" class="sel" style="width:166px;" onmouseover="movr_sel('pan',2,2,13)" onmouseout="mout_sel('pan',2,2,13)" onclick="mclk_sel('pan',2,2,13)"><div class="txt twht" style="width:16px;">0.</div><div class="txt tgrn" style="width:148px;">Chat Box</div></div>
+					</div>
+				</div>
+				<div id="pan_2_3" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:894px;height:140px;">
+					<div style="position:absolute;left:0px;top:0px;width:894px;height:16px;"><div class="hed cen bgrn" style="width:186px;">Recipient</div><div class="hed bgrn" style="width:126px;padding-left:16px;">Combat</div><div class="hed bgrn" style="width:126px;padding-left:16px;">Formation</div><div class="hed bgrn" style="width:126px;padding-left:16px;">Movement</div><div class="hed bgrn" style="width:144px;padding-left:16px;">Other</div><div class="hed cen bgrn" style="width:186px;">Target</div></div>
+					<div style="position:absolute;left:0px;top:16px;width:184px;height:124px;overflow:auto;">
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Friendly Target</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Hostile Target</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Nav Target</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Selected Group</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Highlited Item</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Friendly Leader</div></div>
+						<div style="width:166px;"><div class="txt tgrn" style="width:166px;">Hostile Leader</div></div>
+					</div>
+					<div style="position:absolute;left:186px;top:16px;width:520px;height:124px;overflow:auto;">
+						<div style="position:absolute;left:0px;top:0px;width:126px;">
+							<div id="pan_2_3_1" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,1)" onmouseout="mout_sel('pan',2,3,1)" onclick="mclk_sel('pan',2,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:108px;">Attack...</div></div>
+							<div id="pan_2_3_2" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,2)" onmouseout="mout_sel('pan',2,3,2)" onclick="mclk_sel('pan',2,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:108px;">Disarm...</div></div>
+							<div id="pan_2_3_3" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,3)" onmouseout="mout_sel('pan',2,3,3)" onclick="mclk_sel('pan',2,3,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn" style="width:108px;">Disable...</div></div>
+							<div id="pan_2_3_4" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,4)" onmouseout="mout_sel('pan',2,3,4)" onclick="mclk_sel('pan',2,3,4)"><div class="txt twht" style="width:16px;">4.</div><div class="txt tgrn" style="width:108px;">Capture...</div></div>
+							<div id="pan_2_3_5" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,5)" onmouseout="mout_sel('pan',2,3,5)" onclick="mclk_sel('pan',2,3,5)"><div class="txt twht" style="width:16px;">5.</div><div class="txt tgrn" style="width:108px;">Evade...</div></div>
+							<div id="pan_2_3_6" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,6)" onmouseout="mout_sel('pan',2,3,6)" onclick="mclk_sel('pan',2,3,6)"><div class="txt twht" style="width:16px;">6.</div><div class="txt tgrn" style="width:108px;">Guard...</div></div>
+							<div id="pan_2_3_7" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,7)" onmouseout="mout_sel('pan',2,3,7)" onclick="mclk_sel('pan',2,3,7)"><div class="txt twht" style="width:16px;">7.</div><div class="txt tgrn" style="width:108px;">Cover Me...</div></div>
+							<div id="pan_2_3_8" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,8)" onmouseout="mout_sel('pan',2,3,8)" onclick="mclk_sel('pan',2,3,8)"><div class="txt twht" style="width:16px;">7.</div><div class="txt tgrn" style="width:108px;">Fire at Will</div></div>
+							<div id="pan_2_3_9" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,9)" onmouseout="mout_sel('pan',2,3,9)" onclick="mclk_sel('pan',2,3,9)"><div class="txt twht" style="width:16px;">7.</div><div class="txt tgrn" style="width:108px;">Conserve Ammo</div></div>
+						</div>
+						<div style="position:absolute;left:126px;top:0px;width:126px;">
+							<div id="pan_2_3_10" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,10)" onmouseout="mout_sel('pan',2,3,10)" onclick="mclk_sel('pan',2,3,10)"><div class="txt twht" style="width:16px;">8.</div><div class="txt tgrn" style="width:108px;">Form on My Wing</div></div>
+							<div id="pan_2_3_11" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,11)" onmouseout="mout_sel('pan',2,3,11)" onclick="mclk_sel('pan',2,3,11)"><div class="txt twht" style="width:16px;">9.</div><div class="txt tgrn" style="width:108px;">Formate With...</div></div>
+							<div id="pan_2_3_12" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,12)" onmouseout="mout_sel('pan',2,3,12)" onclick="mclk_sel('pan',2,3,12)"><div class="txt twht" style="width:16px;">a.</div><div class="txt tgrn" style="width:108px;">Break Formation</div></div>
+						</div>
+						<div style="position:absolute;left:252px;top:0px;width:126px;">
+							<div id="pan_2_3_13" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,13)" onmouseout="mout_sel('pan',2,3,13)" onclick="mclk_sel('pan',2,3,13)"><div class="txt twht" style="width:16px;">b.</div><div class="txt tgrn" style="width:108px;">Go To...</div></div>
+							<div id="pan_2_3_14" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,14)" onmouseout="mout_sel('pan',2,3,14)" onclick="mclk_sel('pan',2,3,14)"><div class="txt twht" style="width:16px;">c.</div><div class="txt tgrn" style="width:108px;">Return to Last Base</div></div>
+							<div id="pan_2_3_15" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,15)" onmouseout="mout_sel('pan',2,3,15)" onclick="mclk_sel('pan',2,3,15)"><div class="txt twht" style="width:16px;">d.</div><div class="txt tgrn" style="width:108px;">Dock With...</div></div>
+							<div id="pan_2_3_16" class="sel" style="width:126px;" onmouseover="movr_sel('pan',2,3,16)" onmouseout="mout_sel('pan',2,3,16)" onclick="mclk_sel('pan',2,3,16)"><div class="txt twht" style="width:16px;">e.</div><div class="txt tgrn" style="width:108px;">Stop</div></div>
+						</div>
+						<div style="position:absolute;left:378px;top:0px;width:124px;">
+							<div id="pan_2_3_17" class="sel" style="width:124px;" onmouseover="movr_sel('pan',2,3,17)" onmouseout="mout_sel('pan',2,3,17)" onclick="mclk_sel('pan',2,3,17)"><div class="txt twht" style="width:16px;">f.</div><div class="txt tgrn" style="width:106px;">Refurbish...</div></div>
+							<div id="pan_2_3_18" class="sel" style="width:124px;" onmouseover="movr_sel('pan',2,3,18)" onmouseout="mout_sel('pan',2,3,18)" onclick="mclk_sel('pan',2,3,18)"><div class="txt twht" style="width:16px;">g.</div><div class="txt tgrn" style="width:106px;">Cloak</div></div>
+							<div id="pan_2_3_19" class="sel" style="width:124px;" onmouseover="movr_sel('pan',2,3,19)" onmouseout="mout_sel('pan',2,3,19)" onclick="mclk_sel('pan',2,3,19)"><div class="txt twht" style="width:16px;">h.</div><div class="txt tgrn" style="width:106px;">Transmit Group...</div></div>
+							<div id="pan_2_3_20" class="sel" style="width:124px;" onmouseover="movr_sel('pan',2,3,20)" onmouseout="mout_sel('pan',2,3,20)" onclick="mclk_sel('pan',2,3,20)"><div class="txt twht" style="width:16px;">i.</div><div class="txt tgrn" style="width:106px;">Monitor...</div></div>
+						</div>
+					</div>
+					<div style="position:absolute;left:708px;top:16px;width:184px;height:124px;overflow:auto;">
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Friendly Target</div></div>
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Hostile Target</div></div>
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Nav Target</div></div>
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Selected Group</div></div>
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Highlited Item</div></div>
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Friendly Leader</div></div>
+						<div style="width:168px;"><div class="txt tgrn" style="width:166px;">Hostile Leader</div></div>
+					</div>
+				</div>
+				<div id="act_2_2" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:140px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Comment</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_2_2_1" class="act" style="width:166px;" onmouseover="movr_sel('act',2,2,1)" onmouseout="mout_sel('act',2,2,1)" onclick="mclk_sel('act',2,2,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Send Message</div></div>
+					<div id="act_2_2_2" class="act" style="width:166px;" onmouseover="movr_sel('act',2,2,2)" onmouseout="mout_sel('act',2,2,2)" onclick="mclk_sel('act',2,2,2)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+				<div id="act_2_3" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:140px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Order</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_2_3_1" class="act" style="width:166px;" onmouseover="movr_sel('act',2,3,1)" onmouseout="mout_sel('act',2,3,1)" onclick="mclk_sel('act',2,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Issue Order</div></div>
+					<div id="act_2_3_2" class="act" style="width:166px;" onmouseover="movr_sel('act',2,3,2)" onmouseout="mout_sel('act',2,3,2)" onclick="mclk_sel('act',2,3,2)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_5" class="vdu_off" style="position:absolute;left:16px;top:200px;width:210px;height:280px;">
+			<div id="vdu_5_top" style="position:absolute;left:0px;top:0px;width:210px;height:17px;">
+				<div id="tab_5_1" class="but_tab_off" style="position:absolute;left:0px;top:0px;" onclick="tabToggle(5,1);">Cargo</div>
+				<div id="tab_5_2" class="but_tab_off" style="position:absolute;left:66px;top:0px;" onclick="tabToggle(5,2);">Weapon</div>
+				<div id="tab_5_3" class="but_tab_off" style="position:absolute;left:132px;top:0px;" onclick="tabToggle(5,3);">Hangar</div>
+				<div id="tab_5_0" class="but_clo_off" style="position:absolute;left:198px;top:0px;" onclick="tabToggle(5,0);">X</div>
+			</div>
+			<div id="vdu_5_bot" class="vdu_5" style="position:absolute;left:0px;top:16px;width:196px;height:264px;">
+				<div id="pan_5_1" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Credits</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">40218</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:104px;">Cargo Bays</div><div class="hed cen bgrn" style="width:62px;">Amo</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:104px;">Normal</div><div class="txt cen tgrn" style="width:62px;"><div class="txt tyel">100</div>/150</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:104px;">Pressurized</div><div class="txt cen tgrn" style="width:62px;"><div class="txt tyel">100</div>/150</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:104px;">Passenger</div><div class="txt cen tgrn" style="width:62px;"><div class="txt tyel">100</div>/150</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:104px;">Biohazard</div><div class="txt cen tgrn" style="width:62px;"><div class="txt tyel">100</div>/150</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:104px;">Radioactive</div><div class="txt cen tgrn" style="width:62px;"><div class="txt tyel">100</div>/150</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:120px;padding-left:16px;">opt</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div id="pan_5_1_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,1)" onmouseout="mout_sel('pan',5,1,1)" onclick="mclk_sel('pan',5,1,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:102px;">Holo Vids</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_1_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,2)" onmouseout="mout_sel('pan',5,1,2)" onclick="mclk_sel('pan',5,1,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:102px;">Lithium</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_1_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,3)" onmouseout="mout_sel('pan',5,1,3)" onclick="mclk_sel('pan',5,1,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn" style="width:102px;">Isometal</div><div class="txt cen tgrn" style="width:46px;">1</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:120px;padding-left:16px;">Equipable</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div id="pan_5_1_4" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,4)" onmouseout="mout_sel('pan',5,1,4)" onclick="mclk_sel('pan',5,1,4)"><div class="txt twht" style="width:16px;">4.</div><div class="txt tgrn" style="width:102px;">Holo Vids</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_1_5" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,5)" onmouseout="mout_sel('pan',5,1,5)" onclick="mclk_sel('pan',5,1,5)"><div class="txt twht" style="width:16px;">5.</div><div class="txt tgrn" style="width:102px;">Lithium</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_1_6" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,6)" onmouseout="mout_sel('pan',5,1,6)" onclick="mclk_sel('pan',5,1,6)"><div class="txt twht" style="width:16px;">6.</div><div class="txt tgrn" style="width:102px;">Isometal</div><div class="txt cen tgrn" style="width:46px;">1</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:120px;padding-left:16px;">Contraband</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div id="pan_5_1_7" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,7)" onmouseout="mout_sel('pan',5,1,7)" onclick="mclk_sel('pan',5,1,7)"><div class="txt twht" style="width:16px;">7.</div><div class="txt tgrn" style="width:102px;">Holo Vids</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_1_8" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,8)" onmouseout="mout_sel('pan',5,1,8)" onclick="mclk_sel('pan',5,1,8)"><div class="txt twht" style="width:16px;">8.</div><div class="txt tgrn" style="width:102px;">Lithium</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_1_9" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,1,9)" onmouseout="mout_sel('pan',5,1,9)" onclick="mclk_sel('pan',5,1,9)"><div class="txt twht" style="width:16px;">9.</div><div class="txt tgrn" style="width:102px;">Isometal</div><div class="txt cen tgrn" style="width:46px;">1</div></div>
+				</div>
+				<div id="pan_5_2" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Gunners</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">8</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:120px;">Missiles</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Dumb Fire</div><div class="txt cen tgrn" style="width:46px;"><div class="txt tyel">2</div>/10</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Smart Fire</div><div class="txt cen tgrn" style="width:46px;"><div class="txt tyel">8</div>/10</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Missle Bays</div></div>
+					<div id="pan_5_2_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,1)" onmouseout="mout_sel('pan',5,2,1)" onclick="mclk_sel('pan',5,2,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt twht" style="width:116px;">Dumb Fire</div></div>
+					<div id="pan_5_2_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,2)" onmouseout="mout_sel('pan',5,2,2)" onclick="mclk_sel('pan',5,2,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Light Weapons</div></div>
+					<div id="pan_5_2_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,3)" onmouseout="mout_sel('pan',5,2,3)" onclick="mclk_sel('pan',5,2,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt twht" style="width:116px;">Ion Beam</div></div>
+					<div id="pan_5_2_4" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,4)" onmouseout="mout_sel('pan',5,2,4)" onclick="mclk_sel('pan',5,2,4)"><div class="txt twht" style="width:16px;">4.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt twht" style="width:116px;">Meson Blaster</div></div>
+					<div id="pan_5_2_5" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,5)" onmouseout="mout_sel('pan',5,2,5)" onclick="mclk_sel('pan',5,2,5)"><div class="txt twht" style="width:16px;">5.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Medium Weapons</div></div>
+					<div id="pan_5_2_6" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,6)" onmouseout="mout_sel('pan',5,2,6)" onclick="mclk_sel('pan',5,2,6)"><div class="txt twht" style="width:16px;">6.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div id="pan_5_2_7" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,7)" onmouseout="mout_sel('pan',5,2,7)" onclick="mclk_sel('pan',5,2,7)"><div class="txt twht" style="width:16px;">7.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div id="pan_5_2_8" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,8)" onmouseout="mout_sel('pan',5,2,8)" onclick="mclk_sel('pan',5,2,8)"><div class="txt twht" style="width:16px;">8.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Heavy Weapons</div></div>
+					<div id="pan_5_2_9" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,9)" onmouseout="mout_sel('pan',5,2,9)" onclick="mclk_sel('pan',5,2,9)"><div class="txt twht" style="width:16px;">9.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt twht" style="width:116px;">Mass Driver</div></div>
+					<div id="pan_5_2_10" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,10)" onmouseout="mout_sel('pan',5,2,10)" onclick="mclk_sel('pan',5,2,10)"><div class="txt twht" style="width:16px;">a.</div><div class="txt tgrn" style="width:32px;">hull:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div id="pan_5_2_11" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,11)" onmouseout="mout_sel('pan',5,2,11)" onclick="mclk_sel('pan',5,2,11)"><div class="txt twht" style="width:16px;">b.</div><div class="txt tgrn" style="width:32px;">tur1:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+					<div id="pan_5_2_12" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,2,12)" onmouseout="mout_sel('pan',5,2,12)" onclick="mclk_sel('pan',5,2,12)"><div class="txt twht" style="width:16px;">c.</div><div class="txt tgrn" style="width:32px;">tur2:</div><div class="txt tgrn" style="width:116px;">&lt;empty&gt;</div></div>
+				</div>
+				<div id="pan_5_3" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Pilots</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">18</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:120px;">Hangar Bays</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Small</div><div class="txt cen tgrn" style="width:46px;"><div class="txt tyel">21</div>/35</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Medium</div><div class="txt cen tgrn" style="width:46px;"><div class="txt tyel">20</div>/25</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:120px;padding-left:16px;">Small Ships</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div id="pan_5_3_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,3,1)" onmouseout="mout_sel('pan',5,3,1)" onclick="mclk_sel('pan',5,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:102px;">Llama</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+					<div id="pan_5_3_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,3,2)" onmouseout="mout_sel('pan',5,3,2)" onclick="mclk_sel('pan',5,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:102px;">Scout</div><div class="txt cen tgrn" style="width:46px;">1</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:120px;padding-left:16px;">Medium Ships</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div id="pan_5_3_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',5,3,3)" onmouseout="mout_sel('pan',5,3,3)" onclick="mclk_sel('pan',5,3,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn" style="width:102px;">Corvette</div><div class="txt cen tgrn" style="width:46px;">20</div></div>
+				</div>
+				<div id="act_5_1" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Cargo</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Amount</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_5_1_1" class="act" style="width:166px;" onmouseover="movr_sel('act',5,1,1)" onmouseout="mout_sel('act',5,1,1)" onclick="mclk_sel('act',5,1,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Increase Amount</div></div>
+					<div id="act_5_1_2" class="act" style="width:166px;" onmouseover="movr_sel('act',5,1,2)" onmouseout="mout_sel('act',5,1,2)" onclick="mclk_sel('act',5,1,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Decrease Amount</div></div>
+					<div id="act_5_1_3" class="act" style="width:166px;" onmouseover="movr_sel('act',5,1,3)" onmouseout="mout_sel('act',5,1,3)" onclick="mclk_sel('act',5,1,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt torg" style="width:148px;">Equip</div></div>
+					<div id="act_5_1_4" class="act" style="width:166px;" onmouseover="movr_sel('act',5,1,4)" onmouseout="mout_sel('act',5,1,4)" onclick="mclk_sel('act',5,1,4)"><div class="txt twht" style="width:16px;">4.</div><div class="txt torg" style="width:148px;">Jettison</div></div>
+					<div id="act_5_1_5" class="act" style="width:166px;" onmouseover="movr_sel('act',5,1,5)" onmouseout="mout_sel('act',5,1,5)" onclick="mclk_sel('act',5,1,5)"><div class="txt twht" style="width:16px;">5.</div><div class="txt torg" style="width:148px;">Jettison All</div></div>
+					<div id="act_5_1_6" class="act" style="width:166px;" onmouseover="movr_sel('act',5,1,6)" onmouseout="mout_sel('act',5,1,6)" onclick="mclk_sel('act',5,1,6)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+				<div id="act_5_2" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Weapon</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_5_2_1" class="act" style="width:166px;" onmouseover="movr_sel('act',5,2,1)" onmouseout="mout_sel('act',5,2,1)" onclick="mclk_sel('act',5,2,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Unequip</div></div>
+					<div id="act_5_2_2" class="act" style="width:166px;" onmouseover="movr_sel('act',5,2,2)" onmouseout="mout_sel('act',5,2,2)" onclick="mclk_sel('act',5,2,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Change Rate of Fire</div></div>
+					<div id="act_5_2_3" class="act" style="width:166px;" onmouseover="movr_sel('act',5,2,3)" onmouseout="mout_sel('act',5,2,3)" onclick="mclk_sel('act',5,2,3)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+				<div id="act_5_3" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Ship</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Amount</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_5_3_1" class="act" style="width:166px;" onmouseover="movr_sel('act',5,3,1)" onmouseout="mout_sel('act',5,3,1)" onclick="mclk_sel('act',5,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Increase Amount</div></div>
+					<div id="act_5_3_2" class="act" style="width:166px;" onmouseover="movr_sel('act',5,3,2)" onmouseout="mout_sel('act',5,3,2)" onclick="mclk_sel('act',5,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Decrease Amount</div></div>
+					<div id="act_5_3_3" class="act" style="width:166px;" onmouseover="movr_sel('act',5,3,3)" onmouseout="mout_sel('act',5,3,3)" onclick="mclk_sel('act',5,3,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt torg" style="width:148px;">Launch</div></div>
+					<div id="act_5_3_4" class="act" style="width:166px;" onmouseover="movr_sel('act',5,3,4)" onmouseout="mout_sel('act',5,3,4)" onclick="mclk_sel('act',5,3,4)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_6" class="vdu_off" style="position:absolute;left:798px;top:200px;width:210px;height:280px;">
+			<div id="vdu_6_top" style="position:absolute;left:0px;top:0px;width:212px;height:17px;">
+				<div id="tab_6_0" class="but_clo_off" style="position:absolute;left:0px;top:0px;" onclick="tabToggle(6,0);">X</div>
+				<div id="tab_6_1" class="but_tab_off" style="position:absolute;left:14px;top:0px;" onclick="tabToggle(6,1);">Mission</div>
+				<div id="tab_6_2" class="but_tab_off" style="position:absolute;left:80px;top:0px;" onclick="tabToggle(6,2);">Orders</div>
+				<div id="tab_6_3" class="but_tab_off" style="position:absolute;left:146px;top:0px;" onclick="tabToggle(6,3);">Group</div>
+			</div>
+			<div id="vdu_6_bot" class="vdu_6" style="position:absolute;left:14px;top:16px;width:196px;height:264px;">
+				<div id="pan_6_1" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Cargo Mission</div></div>
+					<div id="pan_6_1_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,1,1)" onmouseout="mout_sel('pan',6,1,1)" onclick="mclk_sel('pan',6,1,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn">Deliver 20 Holo Vids to</div> <div class="txt twht">Sol Sector</div> <div class="txt tgrn">by 12:30</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Combat Mission</div></div>
+					<div id="pan_6_1_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,1,2)" onmouseout="mout_sel('pan',6,1,2)" onclick="mclk_sel('pan',6,1,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn">Guard</div> <div class="txt twht">Mining Base</div> <div class="txt tgrn">by 12:45</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Combat Mission</div></div>
+					<div id="pan_6_1_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,1,3)" onmouseout="mout_sel('pan',6,1,3)" onclick="mclk_sel('pan',6,1,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn">Capture</div> <div class="txt twht">Pirate Jim</div> <div class="txt tgrn">by 12:50</div></div>
+				</div>
+				<div id="pan_6_2" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Combat Order</div></div>
+					<div id="pan_6_2_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,2,1)" onmouseout="mout_sel('pan',6,2,1)" onclick="mclk_sel('pan',6,2,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn">Destroy</div> <div class="txt twht">Commerce Center</div> <div class="txt tgrn">by 11:01</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Special Order</div></div>
+					<div id="pan_6_2_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,2,2)" onmouseout="mout_sel('pan',6,2,2)" onclick="mclk_sel('pan',6,2,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn">Dock with</div> <div class="txt twht">Military Base</div> <div class="txt tgrn">and pick up the package. Return here by 11:05</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Combat Order</div></div>
+					<div id="pan_6_2_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,2,3)" onmouseout="mout_sel('pan',6,2,3)" onclick="mclk_sel('pan',6,2,3)"><div class="txt twht" style="width:16px;">4.</div><div class="txt tgrn">Guard</div> <div class="txt twht">Group 0</div> <div class="txt tgrn">by 11:12</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Move Order</div></div>
+					<div id="pan_6_2_4" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,2,4)" onmouseout="mout_sel('pan',6,2,4)" onclick="mclk_sel('pan',6,2,4)"><div class="txt twht" style="width:16px;">5.</div><div class="txt tgrn">Go to waypoint(s) in</div> <div class="txt twht">Group 0</div> <div class="txt tgrn">by 11:20</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Recon Order</div></div>
+					<div id="pan_6_2_5" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,2,5)" onmouseout="mout_sel('pan',6,2,5)" onclick="mclk_sel('pan',6,2,5)"><div class="txt twht" style="width:16px;">6.</div><div class="txt tgrn">Locate the</div> <div class="txt twht">Research Ship</div> <div class="txt tgrn">by 11:20</div></div>
+				</div>
+				<div id="pan_6_3" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Group Number</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">3</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:120px;padding-left:16px;">Contents</div><div class="hed cen bgrn" style="width:46px;">Type</div></div>
+					<div id="pan_6_3_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,3,1)" onmouseout="mout_sel('pan',6,3,1)" onclick="mclk_sel('pan',6,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:102px;">Commerce Center</div><div class="cll tgrn cen" style="width:46px;">Nav</div></div>
+					<div id="pan_6_3_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',6,3,2)" onmouseout="mout_sel('pan',6,3,2)" onclick="mclk_sel('pan',6,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:102px;">Jump to Sol Sector</div><div class="cll tgrn cen" style="width:46px;">Nav</div></div>
+				</div>
+				<div id="act_6_1" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Mission</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_6_1_1" class="act" style="width:166px;" onmouseover="movr_sel('act',6,1,1)" onmouseout="mout_sel('act',6,1,1)" onclick="mclk_sel('act',6,1,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Target Highlighted</div></div>
+					<div id="act_6_1_2" class="act" style="width:166px;" onmouseover="movr_sel('act',6,1,2)" onmouseout="mout_sel('act',6,1,2)" onclick="mclk_sel('act',6,1,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Delete Mission</div></div>
+					<div id="act_6_1_3" class="act" style="width:166px;" onmouseover="movr_sel('act',6,1,3)" onmouseout="mout_sel('act',6,1,3)" onclick="mclk_sel('act',6,1,3)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+				<div id="act_6_2" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Order</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_6_2_1" class="act" style="width:166px;" onmouseover="movr_sel('act',6,2,1)" onmouseout="mout_sel('act',6,2,1)" onclick="mclk_sel('act',6,2,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Target Highlighted</div></div>
+					<div id="act_6_2_2" class="act" style="width:166px;" onmouseover="movr_sel('act',6,2,2)" onmouseout="mout_sel('act',6,2,2)" onclick="mclk_sel('act',6,2,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Delete Order</div></div>
+					<div id="act_6_2_3" class="act" style="width:166px;" onmouseover="movr_sel('act',6,2,3)" onmouseout="mout_sel('act',6,2,3)" onclick="mclk_sel('act',6,2,3)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+				<div id="act_6_3" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:252px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Member</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_6_3_1" class="act" style="width:166px;" onmouseover="movr_sel('act',6,3,1)" onmouseout="mout_sel('act',6,3,1)" onclick="mclk_sel('act',6,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Target Selected</div></div>
+					<div id="act_6_3_2" class="act" style="width:166px;" onmouseover="movr_sel('act',6,3,2)" onmouseout="mout_sel('act',6,3,2)" onclick="mclk_sel('act',6,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Remove from Group</div></div>
+					<div id="act_6_3_3" class="act" style="width:166px;" onmouseover="movr_sel('act',6,3,3)" onmouseout="mout_sel('act',6,3,3)" onclick="mclk_sel('act',6,3,3)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_3" class="vdu_off" style="position:absolute;left:16px;top:556px;width:210px;height:196px;">
+			<div id="vdu_3_top" style="position:absolute;left:0px;top:0px;width:210px;height:17px;">
+				<div id="tab_3_1" class="but_tab_off" style="position:absolute;left:0px;top:0px;" onclick="tabToggle(3,1);">Damage</div>
+				<div id="tab_3_2" class="but_tab_off" style="position:absolute;left:66px;top:0px;" onclick="tabToggle(3,2);">Power</div>
+				<div id="tab_3_3" class="but_tab_off" style="position:absolute;left:132px;top:0px;" onclick="tabToggle(3,3);">Specs</div>
+				<div id="tab_3_0" class="but_clo_off" style="position:absolute;left:198px;top:0px;" onclick="tabToggle(3,0);">X</div>
+			</div>
+			<div id="vdu_3_bot" class="vdu_3" style="position:absolute;left:0px;top:16px;width:196px;height:180px;">
+				<div id="pan_3_1" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Hull</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">80%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Shields</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">90%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Weapons</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">80%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Engines</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">80%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Electronics</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">90%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Life Support</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">90%</div></div>
+				</div>
+				<div id="pan_3_2" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Shields</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">33%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Weapons</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">33%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Engines</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">33%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Electronics</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">90%</div></div>
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Life Support</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">90%</div></div>
+				</div>
+				<div id="pan_3_3" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:166px;">Upgrades</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">Reactor Capacitance +40%</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">Shield Capacitance +40%</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">Multi Thrust Enhancement</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">Cargo Bay Volume +2%</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">Hangar Bay Volume +2%</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:166px;">Hull Strength +20%</div></div>
+<!--
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:120px;">Crew</div><div class="hed cen bgrn" style="width:46px;">Amo</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Command</div><div class="txt cen tgrn" style="width:46px;">15</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Engineering</div><div class="txt cen tgrn" style="width:46px;">15</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Medical</div><div class="txt cen tgrn" style="width:46px;">15</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Marines</div><div class="txt cen tgrn" style="width:46px;">15</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Scientists</div><div class="txt cen tgrn" style="width:46px;">15</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Pilots</div><div class="txt cen tgrn" style="width:46px;">18</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:120px;">Gunners</div><div class="txt cen tgrn" style="width:46px;">8</div></div>
+-->
+					<div style="width:166px;"><div class="hed cen bgrn" style="width:64px;">Stat</div><div class="hed cen bgrn" style="width:102px;">Equip/Base</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Mass</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Armor</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Power</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Thrust +X</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Thrust +Y</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Thrust +Z</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">200000</div>/150000</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Thrust -X</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Thrust -Y</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="txt cen tgrn" style="width:64px;">Thrust -Z</div><div class="txt cen tgrn" style="width:102px;"><div class="txt tyel">2000</div>/1500</div></div>
+					<div style="width:166px;"><div class="hed bgrn" style="width:166px;padding-left:16px;">Equipment</div></div>
+					<div id="pan_3_3_1" class="sel" style="width:166px;" onmouseover="movr_sel('pan',3,3,1)" onmouseout="mout_sel('pan',3,3,1)" onclick="mclk_sel('pan',3,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt tgrn" style="width:148px;">ECM Package 1</div></div>
+					<div id="pan_3_3_2" class="sel" style="width:166px;" onmouseover="movr_sel('pan',3,3,2)" onmouseout="mout_sel('pan',3,3,2)" onclick="mclk_sel('pan',3,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt tgrn" style="width:148px;">Zoom Lense</div></div>
+					<div id="pan_3_3_3" class="sel" style="width:166px;" onmouseover="movr_sel('pan',3,3,3)" onmouseout="mout_sel('pan',3,3,3)" onclick="mclk_sel('pan',3,3,3)"><div class="txt twht" style="width:16px;">3.</div><div class="txt tgrn" style="width:148px;">Cloaking Device</div></div>
+					<div id="pan_3_3_4" class="sel" style="width:166px;" onmouseover="movr_sel('pan',3,3,4)" onmouseout="mout_sel('pan',3,3,4)" onclick="mclk_sel('pan',3,3,4)"><div class="txt twht" style="width:16px;">4.</div><div class="txt tgrn" style="width:148px;">Shields</div></div>
+					<div id="pan_3_3_5" class="sel" style="width:166px;" onmouseover="movr_sel('pan',3,3,5)" onmouseout="mout_sel('pan',3,3,5)" onclick="mclk_sel('pan',3,3,5)"><div class="txt twht" style="width:16px;">5.</div><div class="txt tgrn" style="width:148px;">Shaolin Maneuvers</div></div>
+				</div>
+				<div id="act_3_3" class="vdu_act" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div style="width:166px;"><div class="hed cen borg" style="width:166px;">Selected Equipment</div></div>
+					<div style="width:166px;"><div class="txt cen torg" style="width:166px;"></div></div>
+					<div style="width:166px;"><div class="hed borg" style="width:166px;padding-left:16px;">Action</div></div>
+					<div id="act_3_3_1" class="act" style="width:166px;" onmouseover="movr_sel('act',3,3,1)" onmouseout="mout_sel('act',3,3,1)" onclick="mclk_sel('act',3,3,1)"><div class="txt twht" style="width:16px;">1.</div><div class="txt torg" style="width:148px;">Disable</div></div>
+					<div id="act_3_3_2" class="act" style="width:166px;" onmouseover="movr_sel('act',3,3,2)" onmouseout="mout_sel('act',3,3,2)" onclick="mclk_sel('act',3,3,2)"><div class="txt twht" style="width:16px;">2.</div><div class="txt torg" style="width:148px;">Enable</div></div>
+					<div id="act_3_3_3" class="act" style="width:166px;" onmouseover="movr_sel('act',3,3,3)" onmouseout="mout_sel('act',3,3,3)" onclick="mclk_sel('act',3,3,3)"><div class="txt twht" style="width:16px;">0.</div><div class="txt torg" style="width:148px;">Cancel</div></div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_4" class="vdu_off" style="position:absolute;left:794px;top:556px;width:210px;height:196px;">
+			<div id="vdu_4_top" style="position:absolute;left:0px;top:0px;width:210px;height:17px;">
+				<div id="tab_4_0" class="but_clo_off" style="position:absolute;left:0px;top:0px;" onclick="tabToggle(4,0);">X</div>
+				<div id="tab_4_1" class="but_tab_off" style="position:absolute;left:14px;top:0px;" onclick="tabToggle(4,1);">Friend</div>
+				<div id="tab_4_2" class="but_tab_off" style="position:absolute;left:80px;top:0px;" onclick="tabToggle(4,2);">Hostile</div>
+				<div id="tab_4_3" class="but_tab_off" style="position:absolute;left:146px;top:0px;" onclick="tabToggle(4,3);">Nav</div>
+			</div>
+			<div id="vdu_4_bot" class="vdu_4" style="position:absolute;left:14px;top:16px;width:196px;height:180px;">
+				<div id="pan_4_1" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div class="txt tgrn" style="position:absolute;left:0px;top:0px;width:182px;height:16px;">Friendly Fighter</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:0px;">42</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:16px;">+</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:32px;">-</div>
+					<div style="position:absolute;left:0px;bottom:0;width:128px;height:64px;border:1 solid #008000;">
+						<div class="txt tgrn" style="position:absolute;left:0px;top:0px;">Subsystem</div>
+						<div class="txt tgrn" style="position:absolute;left:0px;bottom:0;">54</div>
+					</div>
+					<div style="position:absolute;right:0;bottom:0;width:182px;height:32px;">
+						<div class="txt tgrn" style="position:absolute;right:0;top:0px;">2.0E6 m</div>
+						<div class="txt tgrn" style="position:absolute;right:0;bottom:0;">1.0E4 mps</div>
+					</div>
+				</div>
+				<div id="pan_4_2" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div class="txt tgrn" style="position:absolute;left:0px;top:0px;width:182px;height:16px;">Enemy Fighter</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:0px;">42</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:16px;">+</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:32px;">-</div>
+					<div style="position:absolute;left:0px;bottom:0;width:128px;height:64px;border:1 solid #008000;">
+						<div class="txt tgrn" style="position:absolute;left:0px;top:0px;">Subsystem</div>
+						<div class="txt tgrn" style="position:absolute;left:0px;bottom:0;">54</div>
+					</div>
+					<div style="position:absolute;right:0;bottom:0;width:182px;height:32px;">
+						<div class="txt tgrn" style="position:absolute;right:0;top:0px;">2.0E6 m</div>
+						<div class="txt tgrn" style="position:absolute;right:0;bottom:0;">1.0E4 mps</div>
+					</div>
+				</div>
+				<div id="pan_4_3" class="vdu_sel" style="position:absolute;left:6px;top:6px;width:184px;height:168px;">
+					<div class="txt tgrn" style="position:absolute;left:0px;top:0px;width:182px;height:16px;">Jump Point</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:0px;">42</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:16px;">+</div>
+					<div class="txt tgrn" style="position:absolute;right:0;top:32px;">-</div>
+					<div style="position:absolute;left:0px;bottom:0;width:128px;height:64px;border:1 solid #008000;">
+						<div class="txt tgrn" style="position:absolute;left:0px;top:0px;">Subsystem</div>
+						<div class="txt tgrn" style="position:absolute;left:0px;bottom:0;">54</div>
+					</div>
+					<div style="position:absolute;right:0;bottom:0;width:182px;height:32px;">
+						<div class="txt tgrn" style="position:absolute;right:0;top:0px;">2.0E6 m</div>
+						<div class="txt tgrn" style="position:absolute;right:0;bottom:0;">1.0E4 mps</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

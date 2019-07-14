@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>VegaStrike HUD Mockup B</title>
+		<link rel="stylesheet" href="style.css" type="text/css"/>
+		<script language="javascript" type="text/javascript" src="java/vega.js"></script>
+	</head>
+	<body id="body_0">
+		<div style="position:absolute;top:753px;left:2px;color:#e0e0e0;font-family:Verdana,sans-serif;font-size:8pt;font-weight:normal;">CC BY-SA Michael Horvath. Designed for Internet Explorer 11.</div>
+		<div style="left:0px;top:0px;width:1024px;height:768px;">
+			<div class="vdu_hlf" style="left:256px;top:128px;width:512px;height:512px;background:url(images/dsp_center7.png);" title="Player Velocity & Weapon Charge"></div>
+			<div class="vdu_on" style="left:600px;top:0px;width:64px;height:16px;background:url(images/dsp_distance_eny.png);" title="Distance to target"></div>
+			<div class="vdu_hlf" style="left:420px;top:300px;width:32px;height:32px;background:url(images/dsp_lead2.png);" title="Object Location"></div>
+			<div class="vdu_hlf" style="left:256px;top:468px;width:32px;height:32px;background:url(images/dsp_lead3.png);" title="Lead Indicator"></div>
+			<div class="vdu_hlf" style="left:504px;top:376px;width:16px;height:16px;background:url(images/dsp_cross2.png);" title="Cross-hairs"></div>
+			<div class="vdu_hlf" style="left:487px;top:520px;width:48px;height:16px;background:url(images/dsp_lock_on.png);" title="IR/Radar Missile Lock on Player"></div>
+			<div class="vdu_hlf" style="left:520px;top:272px;width:128px;height:128px;background:url(images/dsp_target_eny.png);" title="Player Missile Lock on Enemey"></div>
+			<div class="vdu_on" style="left:374px;top:376px;width:16px;height:16px;background:url(images/dsp_direction2.png);" title="Other Enemies Direction"></div>
+			<div class="vdu_on" style="left:632px;top:376px;width:16px;height:16px;background:url(images/dsp_direction.png);" title="Targeted Enemy Direction"></div>
+			<div class="vdu_off" style="left:384px;top:616px;width:256px;height:128px;background:url(images/dsp_radar.png);" title="3D Radar"></div>
+			<div id="zom_frm" class="vdu_off" style="left:464px;top:336px;width:96px;height:96px;display:none;background:url(images/dsp_zoom_frame.png);" title="Zoom/Scope Area"></div>
+			<div id="bars" class="vdu_off" style="left:652px;top:616px;width:128px;height:128px;">
+				<div id="bars_0" style="width:128px;height:128px;display:block;background:url(images/dsp_bars_0.png);" title="Shield Distribution"></div>
+				<div id="bars_1" style="width:128px;height:128px;display:none;background:url(images/dsp_bars_1.png);" title="Power Distribution"></div>
+				<div id="bars_2" style="width:128px;height:128px;display:none;background:url(images/dsp_bars_2.png);" title="Direction of Inertia"></div>
+			</div>
+<!--
+			<div class="vdu_off" style="left:384px;top:256px;width:256px;height:256px;">
+				<div class="but_sml_off" style="left:112px;top:16px;width:32px;height:32px;">25</div>
+				<div class="but_sml_off" style="left:112px;top:224px;width:32px;height:32px;">75</div>
+			</div>
+			<div class="vdu_off" style="left:447px;top:200px;width:130px;height:17px;">
+				<div class="but_tab_on" style="left:0px;top:0px;width:64px;height:17px;">Detect</div>
+				<div class="but_tab_on" style="left:66px;top:0px;width:64px;height:17px;">Target</div>
+			</div>
+			<div class="vdu_off" style="left:447px;top:556px;width:130px;height:17px;">
+				<div class="but_tab_off" style="left:0px;top:0px;width:64px;height:17px;">Lock</div>
+				<div class="but_tab_off" style="left:66px;top:0px;width:64px;height:17px;">Launch</div>
+			</div>
+-->
+			<div class="vdu_off" style="left:640px;top:500px;width:64px;height:64px;background:url(images/txt_vel.png);" title="Player Velocity & Acceleration"></div>
+			<div class="vdu_off" style="left:320px;top:500px;width:64px;height:64px;background:url(images/txt_dmg.png);" title="Player Shield & Hull Strength"></div>
+			<div class="vdu_off" style="left:480px;top:16px;width:128px;height:64px;background:url(images/txt_fps.png);" title="Current Date, FPS and Sector"></div>
+			<div class="vdu_off" style="left:101px;top:240px;width:92px;height:59px;background:url(images/dsp_wingmen_lft.png);" title="Player Wingmen"></div>
+			<div class="vdu_off" style="left:831px;top:240px;width:92px;height:59px;background:url(images/dsp_wingmen_rgt.png;" title="Target Wingmen"></div>
+			<div class="vdu_off" style="left:83px;top:320px;width:128px;height:128px;background:url(images/dsp_damage_lft.png);" title="Player Hull/Shield Strength"></div>
+			<div class="vdu_off" style="left:813px;top:320px;width:128px;height:128px;background:url(images/dsp_damage_rgt.png);" title="Target Hull/Shield Strength"></div>
+			<div class="vdu_off" style="left:500px;top:728px;width:24px;height:20px;">
+				<div id="zoom_0" style="width:32px;height:32px;left:0px;top:0px;display:block;background:url(images/txt_zom_1x.png);" title="Radar Zoom Level"></div>
+				<div id="zoom_1" style="width:32px;height:32px;left:0px;top:0px;display:none;background:url(images/txt_zom_2x.png);" title="Radar Zoom Level"></div>
+				<div id="zoom_2" style="width:32px;height:32px;left:0px;top:0px;display:none;background:url(images/txt_zom_5x.png);" title="Radar Zoom Level"></div>
+				<div id="zoom_3" style="width:32px;height:32px;left:0px;top:0px;display:none;background:url(images/txt_zom_10x.png);" title="Radar Zoom Level"></div>
+			</div>
+		</div>
+		<!-- these are partially transparent and can be hidden -->
+		<!-- width and height are zero to keep from obscuring other objects, hopefully there are no issues -->
+		<div id="vdu_0" style="left:0px;top:0px;width:0px;height:0px;">
+			<div id="pad_lft" class="vdu_off" style="left:96px;top:464px;width:104px;height:86px;">
+				<div id="pad_h" class="but_hrz_off" style="left:0px;top:0px;" onclick="but_tg('pad_h')"><img src="images/icon_pad_h.png" title="Hyperspace/SPEC"/></div>
+				<div id="pad_a" class="but_hrz_off" style="left:36px;top:0px;" onclick="but_tg('pad_a')"><img src="images/icon_pad_a.png" title="Autopilot"/></div>
+				<div id="pad_m" class="but_hrz_off" style="left:72px;top:0px;" onclick="but_tg('pad_m')"><img src="images/icon_pad_m.png" title="Match Target Velocity"/></div>
+				<div id="pad_n" class="but_hrz_off" style="left:0px;top:30px;" onclick="but_tg('pad_n')"><img src="images/icon_pad_n.png" title="Toggle Newtonian Flight"/></div>
+				<div id="pad_s" class="but_hrz_on" style="left:36px;top:30px;" onclick="but_tg('pad_s')"><img src="images/icon_pad_s.png" title="Sync Weapons"/></div>
+				<div id="pad_t" class="but_hrz_on" style="left:72px;top:30px;" onclick="but_tg('pad_t')"><img src="images/icon_pad_t.png" title="Auto-targeting"/></div>
+				<div id="pad_e" class="but_hrz_clr_off" style="left:0px;top:60px;" onclick="brd_off()"><img src="images/icon_pad_e.png" title="ECM"/></div>
+				<div id="pad_c" class="but_hrz_clr_off" style="left:36px;top:60px;" onclick="bkg_off()"><img src="images/icon_pad_c.png" title="Cloak"/></div>
+				<div id="pad_o" class="but_hrz_clr_off" style="left:72px;top:60px;" onclick="pop_up()"><img src="images/icon_pad_o.png" title="Can't Remember What"/></div>
+			</div>
+			<div id="pad_rgt" class="vdu_off" style="left:824px;top:464px;width:104px;height:86px;">
+				<div id="pad_1" class="but_hrz_off" style="left:0px;top:0px;" onclick="but_sw('pad_1',9,1);but_tg('pad_1')"><img src="images/icon_pad_1.png" title="Group 1"/></div>
+				<div id="pad_2" class="but_hrz_on" style="left:36px;top:0px;" onclick="but_sw('pad_2',9,1);but_tg('pad_2')"><img src="images/icon_pad_2.png" title="Group 2"/></div>
+				<div id="pad_3" class="but_hrz_off" style="left:72px;top:0px;" onclick="but_sw('pad_3',9,1);but_tg('pad_3')"><img src="images/icon_pad_3.png" title="Group 3"/></div>
+				<div id="pad_4" class="but_hrz_off" style="left:0px;top:30px;" onclick="but_sw('pad_4',9,1);but_tg('pad_4')"><img src="images/icon_pad_4.png" title="Group 4"/></div>
+				<div id="pad_5" class="but_hrz_off" style="left:36px;top:30px;" onclick="but_sw('pad_5',9,1);but_tg('pad_5')"><img src="images/icon_pad_5.png" title="Group 5"/></div>
+				<div id="pad_6" class="but_hrz_off" style="left:72px;top:30px;" onclick="but_sw('pad_6',9,1);but_tg('pad_6')"><img src="images/icon_pad_6.png" title="Group 6"/></div>
+				<div id="pad_7" class="but_hrz_clr_off" style="left:0px;top:60px;" onclick="but_sw('pad_7',9,1);but_tg('pad_7')"><img src="images/icon_pad_7.png" title="Group 7"/></div>
+				<div id="pad_8" class="but_hrz_clr_off" style="left:36px;top:60px;" onclick="but_sw('pad_8',9,1);but_tg('pad_8')"><img src="images/icon_pad_8.png" title="Group 8"/></div>
+				<div id="pad_9" class="but_hrz_clr_off" style="left:72px;top:60px;" onclick="but_sw('pad_9',9,1);but_tg('pad_9')"><img src="images/icon_pad_9.png" title="Group 9"/></div>
+			</div>
+			<div id="mnu_lft" class="vdu_off" style="left:20px;top:447px;width:64px;height:100px;">
+				<div id="mnu_0" class="but_hrz_thn_off" style="left:0px;top:0px;" onclick="but_tg('mnu_0')"><img src="images/icon_mnu_4.png" title="Game Menu"/></div>
+				<div id="mnu_1" class="but_hrz_thn_off" style="left:0px;top:27px;" onclick="but_tg('mnu_1')"><img src="images/icon_mnu_1.png" title="Nav Grid"/></div>
+				<div id="mnu_2" class="but_hrz_thn_off" style="left:0px;top:54px;" onclick="but_tg('mnu_2')"><img src="images/icon_mnu_2.png" title="Grav Grid"/></div>
+				<div id="mnu_3" class="but_hrz_thn_off" style="left:0px;top:81px;display:none;" onclick="but_tg('mnu_3')"><!--<img src="images/icon_mnu_3.png" title=""/>--></div>
+			</div>
+			<div id="mnu_rgt" class="vdu_off" style="left:940px;top:447px;width:64px;height:100px;">
+				<div id="mnu_4" class="but_hrz_thn_off" style="left:0px;top:0px;" onclick="but_tg('mnu_4')"><img src="images/icon_mnu_6.png" title="Time Compression"/></div>
+				<div id="mnu_5" class="but_hrz_thn_on" style="left:0px;top:27px;" onclick="but_tg('mnu_5');hud_mode()"><img src="images/icon_mnu_5.png" title="HUD Detail"/></div>
+				<div id="mnu_6" class="but_hrz_thn_off" style="left:0px;top:54px;" onclick="but_tg('mnu_6')"><!--<img src="images/icon_mnu_7.png" title=""/>--></div>
+				<div id="mnu_7" class="but_hrz_thn_off" style="left:0px;top:81px;display:none;" onclick="but_tg('mnu_7')"><!--<img src="images/icon_mnu_8.png" title=""/>--></div>
+			</div>
+			<div id="pnl_1" class="vdu_off" style="left:20px;top:296px;width:40px;height:136px;">
+				<div id="pnl_1_0" class="but_lrg_on" style="left:0px;top:0px;" onclick="pnl_sw('1_0')"><img src="images/icon_comm.png" title="Communications"/></div>
+				<div id="pnl_1_1" class="but_lrg_off" style="left:0px;top:48px;" onclick="pnl_sw('1_1')"><img src="images/icon_invt.png" title="Inventory/Cargo"/></div>
+				<div id="pnl_1_2" class="but_lrg_off" style="left:0px;top:96px;" onclick="pnl_sw('1_2')"><img src="images/icon_info.png" title="Missions/Jobs"/></div>
+			</div>
+			<div id="pnl_2" class="vdu_off" style="left:964px;top:296px;width:40px;height:136px;">
+				<div id="pnl_2_0" class="but_lrg_off" style="left:0px;top:0px;" onclick="pnl_sw('2_0')"><img src="images/icon_shld.png" title="Shield Mgmt"/></div>
+				<div id="pnl_2_1" class="but_lrg_off" style="left:0px;top:48px;" onclick="pnl_sw('2_1')"><img src="images/icon_powr.png" title="Power Mgmt"/></div>
+				<div id="pnl_2_2" class="but_lrg_on" style="left:0px;top:96px;" onclick="pnl_sw('2_2')"><img src="images/icon_targ.png" title="Targeting"/></div>
+			</div>
+			<div id="pnl_3" class="vdu_off" style="left:296px;top:20px;width:136px;height:40px;">
+				<div id="pnl_3_0" class="but_lrg_on" style="left:0px;top:0px;" onclick="pnl_sw('3_0')"><img src="images/icon_comb.png" title="Combat Menu"/></div>
+				<div id="pnl_3_1" class="but_lrg_off" style="left:48px;top:0px;" onclick="pnl_sw('3_1')"><img src="images/icon_repr.png" title="Repair Systems"/></div>
+				<div id="pnl_3_2" class="but_lrg_off" style="left:96px;top:0px;" onclick="pnl_sw('3_2')"><img src="images/icon_hngr.png" title="Hangar Bay"/></div>
+			</div>
+			<div id="pnl_4" class="vdu_off" style="left:620px;top:20px;width:136px;height:40px;">
+				<div id="pnl_4_0" class="but_lrg_off" style="left:0px;top:0px;" onclick="pnl_sw('4_0')"><img src="images/icon_chrt.png" title="Map"/></div>
+				<div id="pnl_4_1" class="but_lrg_on" style="left:48px;top:0px;" onclick="pnl_sw('4_1')"><img src="images/icon_sens.png" title="Radar"/></div>
+				<div id="pnl_4_2" class="but_lrg_off" style="left:96px;top:0px;" onclick="pnl_sw('4_2')"><img src="images/icon_cmra.png" title="Camera/Scope"/></div>
+			</div>
+			<div class="vdu_off" style="left:356px;top:648px;width:20px;height:64px;">
+				<div id="but_1" class="but_arw_sml_up_off" style="left:0px;top:0px;" onclick="zoom_in()" onmousedown="but_dn('but_1')" onmouseup="but_up('but_1')" title="Cycle radar range"></div>
+				<div id="but_2" class="but_arw_sml_dwn_off" style="left:0px;top:40px;" onclick="zoom_out()" onmousedown="but_dn('but_2')" onmouseup="but_up('but_2')" title="Cycle radar range"></div>
+			</div>
+			<div class="vdu_off" style="left:480px;top:592px;width:64px;height:20px;">
+				<div id="but_3" class="but_arw_sml_lft_off" style="left:0px;top:0px;" onmousedown="but_dn('but_3')" onmouseup="but_up('but_3')" title="Unused"></div>
+				<div id="but_4" class="but_arw_sml_rgt_off" style="left:40px;top:0px;" onmousedown="but_dn('but_4')" onmouseup="but_up('but_4')" title="Unused"></div>
+			</div>
+			<div class="vdu_off" style="left:684px;top:592px;width:64px;height:20px;">
+				<div id="but_5" class="but_arw_sml_lft_off" style="left:0px;top:0px;" onclick="bars_in()" onmousedown="but_dn('but_5')" onmouseup="but_up('but_5')" title="Cycle Inertia/Shield/Power Distribution"></div>
+				<div id="but_6" class="but_arw_sml_rgt_off" style="left:40px;top:0px;" onclick="bars_out()" onmousedown="but_dn('but_6')" onmouseup="but_up('but_6')" title="Cycle Inertia/Shield/Power Distribution"></div>
+			</div>
+		</div>
+		<div class="vdu_off" style="left:77px;top:240px;width:0px;height:0px;"><!-- was width:140px;height:128px; -->
+			<div id="wing_0" class="but_arw_nrw_lft_off" style="left:0px;top:5px;display:none;" onmousedown="but_dn('wing_0')" onmouseup="but_up('wing_0')" title="Cycle flightgroup pages"></div>
+			<div id="wing_1" class="but_arw_nrw_rgt_off" style="left:124px;top:5px;display:block;" onmousedown="but_dn('wing_1')" onmouseup="but_up('wing_1')" title="Cycle flightgroup pages"></div>
+		</div>
+		<div class="vdu_off" style="left:807px;top:240px;width:0px;height:0px;"><!-- was width:140px;height:128px; -->
+			<div id="wing_2" class="but_arw_nrw_lft_off" style="left:0px;top:5px;display:none;" onmousedown="but_dn('wing_2');" onmouseup="but_up('wing_2')" title="Cycle flightgroup pages"></div>
+			<div id="wing_3" class="but_arw_nrw_rgt_off" style="left:124px;top:5px;display:none;" onmousedown="but_dn('wing_3')" onmouseup="but_up('wing_3')" title="Cycle flightgroup pages"></div>
+		</div>
+		<div id="vdu_6" class="vdu_off" style="left:302px;top:96px;width:460px;height:128px;display:none;">
+			<div id="mssg" class="exp" style="display:block;">
+				<div class="but_cls_clr_off" style="left:423px;top:4px;" onclick="this.parentNode.parentNode.style.display = 'none';document.getElementById('mnu_x').className = 'but_hrz_thn_off'"></div>
+			</div>
+		</div>
+		<div id="vdu_1" class="vdu_off" style="left:16px;top:560px;width:328px;height:192px;display:block;">
+			<div id="comm" class="exp" style="display:block;">
+				<div id="max_0" class="but_max_off" style="left:215px;top:11px;" onclick="max_sw();pnl_sw('5_0')" onmousedown="but_dn('max_0')" onmouseup="but_up('max_0')" title="Maximize Window"></div>
+				<div id="cls_0" class="but_cls_off" style="left:301px;top:6px;" onclick="pnl_sw('1_0')" onmousedown="but_dn('cls_0')" onmouseup="but_up('cls_0')" title="Close Window"></div>
+				<div id="comm_ctl" style="left:297px;top:87px;width:26px;height:100px;">
+					<div id="comm_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('comm_0',3,0);but_sw('comm_lrg_0',4,0);but_tg('comm_0');but_tg('comm_lrg_0')"><img src="images/icon_comm_0.png" title="Target Chat"/></div>
+					<div id="comm_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('comm_1',3,0);but_sw('comm_lrg_1',4,0);but_tg('comm_1');but_tg('comm_lrg_1')"><img src="images/icon_comm_1.png" title="Wingmen Chat"/></div>
+					<div id="comm_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_sw('comm_2',3,0);but_sw('comm_lrg_2',4,0);but_tg('comm_2');but_tg('comm_lrg_2')"><img src="images/icon_comm_2.png" title="Broadcast Chat"/></div>
+				</div>
+				<div id="comm_cnt" class="vdu_1_box">
+				</div>
+			</div>
+			<div id="invt" class="exp" style="display:none;">
+				<div id="max_1" class="but_max_off" style="left:215px;top:11px;" onclick="max_sw();pnl_sw('5_1')" onmousedown="but_dn('max_1')" onmouseup="but_up('max_1')" title="Maximize Window"></div>
+				<div id="cls_1" class="but_cls_off" style="left:301px;top:6px;" onclick="pnl_sw('1_1')" onmousedown="but_dn('cls_1')" onmouseup="but_up('cls_1')" title="Close Window"></div>
+				<div id="invt_ctl" style="left:297px;top:87px;width:26px;height:100px;">
+					<div id="invt_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_tg('invt_0')"><img src="images/icon_invt_0.png" title="Passengers"/></div>
+					<div id="invt_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_tg('invt_1')"><img src="images/icon_invt_1.png" title="Trade Goods"/></div>
+					<div id="invt_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_tg('invt_2')"><img src="images/icon_invt_2.png" title="Ships"/></div>
+				</div>
+				<div id="invt_cnt" class="vdu_1_box">
+				</div>
+			</div>
+			<div id="info" class="exp" style="display:none;">
+				<div id="max_2" class="but_max_off" style="left:215px;top:11px;" onclick="max_sw();pnl_sw('5_2')" onmousedown="but_dn('max_2')" onmouseup="but_up('max_2')" title="Maximize Window"></div>
+				<div id="cls_2" class="but_cls_off" style="left:301px;top:6px;" onclick="pnl_sw('1_2')" onmousedown="but_dn('cls_2')" onmouseup="but_up('cls_2')" title="Close Window"></div>
+				<div id="info_ctl" style="left:297px;top:87px;width:26px;height:100px;">				
+					<div id="info_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('info_0',3,0);but_sw('info_lrg_0',4,0);but_tg('info_0');but_tg('info_lrg_0')"><img src="images/icon_info_0.png" title="Reputations & Rankings"/></div>
+					<div id="info_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('info_1',3,0);but_sw('info_lrg_1',4,0);but_tg('info_1');but_tg('info_lrg_1')"><img src="images/icon_info_1.png" title="Missions"/></div>
+					<div id="info_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_sw('info_2',3,0);but_sw('info_lrg_2',4,0);but_tg('info_2');but_tg('info_lrg_2')"><img src="images/icon_info_2.png" title="Personal Notes"/></div>
+				</div>
+				<div id="info_cnt" class="vdu_1_box">
+				</div>
+			</div>
+		</div>
+		<div id="vdu_2" class="vdu_off" style="left:788px;top:560px;width:220px;height:220px;">
+			<div id="shld" class="exp" style="display:none;">
+				<div id="shld_ctl" style="left:0px;top:54px;width:26px;height:134px;">
+					<div id="shld_0" class="but_vrt_on" style="left:0px;top:0px;" onclick="but_sw('shld_0',4,0);but_tg('shld_0');box_sw('shld_0',4,0)"><img src="images/icon_shld_0.png" title="Forward Shields"/></div>
+					<div id="shld_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('shld_1',4,0);but_tg('shld_1');box_sw('shld_1',4,0)"><img src="images/icon_shld_1.png" title="Rear Shields"/></div>
+					<div id="shld_2" class="but_vrt_off" style="left:0px;top:68px;" onclick="but_sw('shld_2',4,0);but_tg('shld_2');box_sw('shld_2',4,0)"><img src="images/icon_shld_2.png" title="Left Shields"/></div>
+					<div id="shld_3" class="but_vrt_off" style="left:0px;top:102px;" onclick="but_sw('shld_3',4,0);but_tg('shld_3');box_sw('shld_3',4,0)"><img src="images/icon_shld_3.png" title="Right Shields"/></div>
+				</div>
+				<div id="shld_cnt" class="vdu_2_box">
+					<div id="shld_0_box" class="exp" style="display:block;">
+						<img src="images/dsp_shld_0.png"/>
+						<div id="shld_0_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('shld_0_0')" onmouseup="but_up('shld_0_0')" title="Decrease Strength"></div>
+						<div id="shld_0_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('shld_0_1')" onmouseup="but_up('shld_0_1')" title="Increase Strength"></div>
+						<div id="shld_0_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('shld_0_2')" onmouseup="but_up('shld_0_2')" title="Equalize Strength"></div>
+					</div>
+					<div id="shld_1_box" class="exp" style="display:none;">
+						<img src="images/dsp_shld_1.png"/>
+						<div id="shld_1_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('shld_1_0')" onmouseup="but_up('shld_1_0')" title="Decrease Strength"></div>
+						<div id="shld_1_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('shld_1_1')" onmouseup="but_up('shld_1_1')" title="Increase Strength"></div>
+						<div id="shld_1_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('shld_1_2')" onmouseup="but_up('shld_1_2')" title="Equalize Strength"></div>
+					</div>
+					<div id="shld_2_box" class="exp" style="display:none;">
+						<img src="images/dsp_shld_2.png"/>
+						<div id="shld_2_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('shld_2_0')" onmouseup="but_up('shld_2_0')" title="Decrease Strength"></div>
+						<div id="shld_2_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('shld_2_1')" onmouseup="but_up('shld_2_1')" title="Increase Strength"></div>
+						<div id="shld_2_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('shld_2_2')" onmouseup="but_up('shld_2_2')" title="Equalize Strength"></div>
+					</div>
+					<div id="shld_3_box" class="exp" style="display:none;">
+						<img src="images/dsp_shld_3.png"/>
+						<div id="shld_3_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('shld_3_0')" onmouseup="but_up('shld_3_0')" title="Decrease Strength"></div>
+						<div id="shld_3_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('shld_3_1')" onmouseup="but_up('shld_3_1')" title="Increase Strength"></div>
+						<div id="shld_3_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('shld_3_2')" onmouseup="but_up('shld_3_2')" title="Equalize Strength"></div>
+					</div>
+				</div>
+			</div>
+			<div id="powr" class="exp" style="display:none;">
+				<div id="powr_ctl" style="left:0px;top:54px;width:26px;height:134px;">
+					<div id="powr_0" class="but_vrt_on" style="left:0px;top:0px;" onclick="but_sw('powr_0',4,0);but_tg('powr_0');box_sw('powr_0',4,0)"><img src="images/icon_powr_0.png" title="Shields"/></div>
+					<div id="powr_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('powr_1',4,0);but_tg('powr_1');box_sw('powr_1',4,0)"><img src="images/icon_powr_1.png" title="Weapons"/></div>
+					<div id="powr_2" class="but_vrt_off" style="left:0px;top:68px;" onclick="but_sw('powr_2',4,0);but_tg('powr_2');box_sw('powr_2',4,0)"><img src="images/icon_powr_2.png" title="Engines"/></div>
+					<div id="powr_3" class="but_vrt_off" style="left:0px;top:102px;" onclick="but_sw('powr_3',4,0);but_tg('powr_3');box_sw('powr_3',4,0)"><img src="images/icon_powr_3.png" title="Subsystems/Components"/></div>
+				</div>
+				<div id="powr_cnt" class="vdu_2_box">
+					<div id="powr_0_box" class="exp" style="display:block;">
+						<img src="images/dsp_powr_0.png"/>
+						<div id="powr_0_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('powr_0_0')" onmouseup="but_up('powr_0_0')" title="Decrease Strength"></div>
+						<div id="powr_0_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('powr_0_1')" onmouseup="but_up('powr_0_1')" title="Increase Strength"></div>
+						<div id="powr_0_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('powr_0_2')" onmouseup="but_up('powr_0_2')" title="Equalize Strength"></div>
+					</div>
+					<div id="powr_1_box" class="exp" style="display:none;">
+						<img src="images/dsp_powr_1.png"/>
+						<div id="powr_1_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('powr_1_0')" onmouseup="but_up('powr_1_0')" title="Decrease Strength"></div>
+						<div id="powr_1_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('powr_1_1')" onmouseup="but_up('powr_1_1')" title="Increase Strength"></div>
+						<div id="powr_1_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('powr_1_2')" onmouseup="but_up('powr_1_2')" title="Equalize Strength"></div>
+					</div>
+					<div id="powr_2_box" class="exp" style="display:none;">
+						<img src="images/dsp_powr_2.png"/>
+						<div id="powr_2_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('powr_2_0')" onmouseup="but_up('powr_2_0')" title="Decrease Strength"></div>
+						<div id="powr_2_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('powr_2_1')" onmouseup="but_up('powr_2_1')" title="Increase Strength"></div>
+						<div id="powr_2_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('powr_2_2')" onmouseup="but_up('powr_2_2')" title="Equalize Strength"></div>
+					</div>
+					<div id="powr_3_box" class="exp" style="display:none;">
+						<img src="images/dsp_powr_3.png"/>
+						<div id="powr_3_0" class="but_mth_mns_off" style="left:30px;top:150px;" onmousedown="but_dn('powr_3_0')" onmouseup="but_up('powr_3_0')" title="Decrease Strength"></div>
+						<div id="powr_3_1" class="but_mth_pls_off" style="left:130px;top:150px;" onmousedown="but_dn('powr_3_1')" onmouseup="but_up('powr_3_1')" title="Increase Strength"></div>
+						<div id="powr_3_2" class="but_mth_sml_eql_off" style="left:2px;top:150px;" onmousedown="but_dn('powr_3_2')" onmouseup="but_up('powr_3_2')" title="Equalize Strength"></div>
+					</div>
+				</div>
+			</div>
+			<div id="targ" class="exp" style="display:block;">
+				<div id="targ_ctl" style="left:0px;top:54px;width:26px;height:134px;">
+					<div id="targ_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('targ_0',4,0);but_tg('targ_0');box_sw('targ_0',4,0)"><img src="images/icon_targ_0.png" title="Friendly"/></div>
+					<div id="targ_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('targ_1',4,0);but_tg('targ_1');box_sw('targ_1',4,0)"><img src="images/icon_targ_1.png" title="Neutral"/></div>
+					<div id="targ_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_sw('targ_2',4,0);but_tg('targ_2');box_sw('targ_2',4,0)"><img src="images/icon_targ_2.png" title="Enemy"/></div>
+					<div id="targ_3" class="but_vrt_off" style="left:0px;top:102px;" onclick="but_sw('targ_3',4,0);but_tg('targ_3');box_sw('targ_3',4,0)"><img src="images/icon_targ_3.png" title="Nav"/></div>
+				</div>
+				<div id="targ_cnt" class="vdu_2_box">
+					<div id="targ_0_box" class="exp" style="display:none;">
+						<div id="txt_sub_0" style="left:6px;top:42px;display:none;"></div>
+						<div id="targ_0_0" class="but_grp_off" style="left:2px;top:122px;" onmousedown="but_dn('targ_0_0')" onmouseup="but_up('targ_0_0')" title="Add/Remove from Group"></div>
+						<div id="targ_0_1" class="but_sub_off" style="left:2px;top:150px;" onclick="but_tg('targ_0_1');sub_on(0)" title="Target Subsystem"></div>
+						<div id="targ_0_2" class="but_arw_edg_lft_off" style="left:30px;top:150px;" onmousedown="but_dn('targ_0_2')" onmouseup="but_up('targ_0_2')" title="Cycle Targets"></div>
+						<div id="targ_0_3" class="but_arw_edg_rgt_off" style="left:130px;top:150px;" onmousedown="but_dn('targ_0_3')" onmouseup="but_up('targ_0_3')" title="Cycle Targets"></div>
+					</div>
+					<div id="targ_1_box" class="exp" style="display:none;">
+						<div id="txt_sub_1" style="left:6px;top:42px;display:none;"></div>
+						<div id="targ_1_0" class="but_grp_off" style="left:2px;top:122px;" onmousedown="but_dn('targ_1_0')" onmouseup="but_up('targ_1_0')" title="Add/Remove from Group"></div>
+						<div id="targ_1_1" class="but_sub_off" style="left:2px;top:150px;" onclick="but_tg('targ_1_1');sub_on(1)" title="Target Subsystem"></div>
+						<div id="targ_1_2" class="but_arw_edg_lft_off" style="left:30px;top:150px;" onmousedown="but_dn('targ_1_2')" onmouseup="but_up('targ_1_2')" title="Cycle Targets"></div>
+						<div id="targ_1_3" class="but_arw_edg_rgt_off" style="left:130px;top:150px;" onmousedown="but_dn('targ_1_3')" onmouseup="but_up('targ_1_3')" title="Cycle Targets"></div>
+					</div>
+					<div id="targ_2_box" class="exp" style="display:block;">
+						<img src="images/dsp_targ_2.png"/>
+						<div style="left:64px;top:6px;width:128px;height:128px;background:url(images/txt_vel_2.png);" title="Target Velocity, Acceleration, Shield Strength, Hull Strength"></div>
+						<div style="left:6px;top:6px;width:128px;height:128px;background:url(images/txt_nam_2.png);" title="Target Name"></div>
+						<div id="txt_sub_2" style="left:6px;top:42px;display:block;width:128px;height:128px;background:url(images/txt_sub_2.png);" title="Subsystem Name"></div>
+						<div style="left:168px;top:48px;width:128px;height:128px;background:url(images/dsp_shields_2.png);" title="Shield Strength"></div>
+						<div style="left:178px;top:48px;width:128px;height:128px;background:url(images/dsp_armor_2.png);" title="Hull Strength"></div>
+						<div id="targ_2_0" class="but_grp_off" style="left:2px;top:122px;" onmousedown="but_dn('targ_2_0')" onmouseup="but_up('targ_2_0')" title="Add/Remove from Group"></div>
+						<div id="targ_2_1" class="but_sub_on" style="left:2px;top:150px;" onclick="but_tg('targ_2_1');sub_on(2)" title="Target Subsystem"></div>
+						<div id="targ_2_2" class="but_arw_edg_lft_off" style="left:30px;top:150px;" onmousedown="but_dn('targ_2_2')" onmouseup="but_up('targ_2_2')" title="Cycle Targets"></div>
+						<div id="targ_2_3" class="but_arw_edg_rgt_off" style="left:130px;top:150px;" onmousedown="but_dn('targ_2_3')" onmouseup="but_up('targ_2_3')" title="Cycle Targets"></div>
+					</div>
+					<div id="targ_3_box" class="exp" style="display:none;">
+						<div id="txt_sub_3" style="left:6px;top:42px;display:none;"></div>
+						<div id="targ_3_0" class="but_grp_off" style="left:2px;top:122px;" onmousedown="but_dn('targ_3_0')" onmouseup="but_up('targ_3_0')" title="Add/Remove from Group"></div>
+						<div id="targ_3_1" class="but_sub_off" style="left:2px;top:150px;" onclick="but_tg('targ_3_1');sub_on(3)" title="Target Subsystem"></div>
+						<div id="targ_3_2" class="but_arw_edg_lft_off" style="left:30px;top:150px;" onmousedown="but_dn('targ_3_2')" onmouseup="but_up('targ_3_2')" title="Cycle Targets"></div>
+						<div id="targ_3_3" class="but_arw_edg_rgt_off" style="left:130px;top:150px;" onmousedown="but_dn('targ_3_3')" onmouseup="but_up('targ_3_3')" title="Cycle Targets"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_3" class="vdu_off" style="left:16px;top:16px;width:256px;height:192px;">
+			<div id="comb" class="exp" style="display:block;">
+				<div id="comb_ctl" style="left:230px;top:4px;width:26px;height:100px;">
+					<div id="comb_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('comb_0',3,0);but_tg('comb_0');box_sw('comb_0',3,0)"><img src="images/icon_comb_0.png" title="Weapons"/></div>
+					<div id="comb_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('comb_1',3,0);but_tg('comb_1');box_sw('comb_1',3,0)"><img src="images/icon_comb_1.png" title="Orders Issued"/></div>
+					<div id="comb_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_sw('comb_2',3,0);but_tg('comb_2');box_sw('comb_2',3,0)"><img src="images/icon_comb_2.png" title="Orders Received"/></div>
+				</div>
+				<div id="comb_cnt" class="vdu_3_box">
+					<div id="comb_0_box" style="display:none;">
+
+						<img src="images/dsp_comb_0.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_on">Guns</div>
+							<div id="comb_0_0" class="cll_off"><span id="comb_0_0_arw" class="ind_on" style="display:none;"></span>1. Ion Beam</div>
+							<div id="comb_0_1" class="cll_on"><span id="comb_0_1_arw" class="ind_on" style="display:block;"></span>2. Meson Blaster</div>
+							<div id="comb_0_2" class="cll_off"><span id="comb_0_2_arw" class="ind_on" style="display:none;"></span>3. Tractor Beam</div>
+							<div id="comb_0_3" class="cll_off"><span id="comb_0_3_arw" class="ind_on" style="display:none;"></span>4. &lt;empty&gt;</div>
+							<div id="comb_0_4" class="cll_off"><span id="comb_0_4_arw" class="ind_on" style="display:none;"></span>5. All</div>
+							<div class="hed_on">Missiles</div>
+							<div id="comb_0_5" class="cll_on"><span id="comb_0_5_arw" class="ind_on" style="display:block;"></span>6. Dumb Fire&nbsp;&nbsp;(20)</div>
+							<div id="comb_0_6" class="cll_off"><span id="comb_0_6_arw" class="ind_on" style="display:none;"></span>7. &lt;empty&gt;</div>
+							<div id="comb_0_7" class="cll_off"><span id="comb_0_7_arw" class="ind_on" style="display:none;"></span>8. All</div>
+						</div>
+-->
+					</div>
+					<div id="comb_1_box" class="exp" style="display:none;">
+
+						<img src="images/dsp_comb_1.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_on">Combat</div>
+							<div id="comb_1_0" class="cll_off"><span id="comb_1_0_arw" class="ind_on" style="display:none;"></span>1. Attack...</div>
+							<div id="comb_1_1" class="cll_off"><span id="comb_1_1_arw" class="ind_on" style="display:none;"></span>2. Disarm...</div>
+							<div id="comb_1_2" class="cll_off"><span id="comb_1_2_arw" class="ind_on" style="display:none;"></span>3. Disable...</div>
+							<div id="comb_1_4" class="cll_off"><span id="comb_1_4_arw" class="ind_on" style="display:none;"></span>4. Evade...</div>
+							<div id="comb_1_5" class="cll_off"><span id="comb_1_5_arw" class="ind_on" style="display:none;"></span>5. Guard...</div>
+							<div id="comb_1_6" class="cll_off"><span id="comb_1_6_arw" class="ind_on" style="display:none;"></span>6. Cover Me</div>
+							<div class="hed_on">Formation</div>
+							<div id="comb_1_7" class="cll_off"><span id="comb_1_7_arw" class="ind_on" style="display:none;"></span>7. Formate With...</div>
+							<div id="comb_1_8" class="cll_off"><span id="comb_1_8_arw" class="ind_on" style="display:none;"></span>8. Form on My Wing</div>
+							<div id="comb_1_9" class="cll_off"><span id="comb_1_9_arw" class="ind_on" style="display:none;"></span>9. Break Formation</div>
+							<div class="hed_on">Movement</div>
+							<div id="comb_1_10" class="cll_off"><span id="comb_1_10_arw" class="ind_on" style="display:none;"></span>10. Go To...</div>
+							<div id="comb_1_11" class="cll_off"><span id="comb_1_11_arw" class="ind_on" style="display:none;"></span>11. Dock With...</div>
+							<div id="comb_1_12" class="cll_off"><span id="comb_1_12_arw" class="ind_on" style="display:none;"></span>12. Halt</div>
+							<div id="comb_1_13" class="cll_off"><span id="comb_1_13_arw" class="ind_on" style="display:none;"></span>13. Return to Base</div>
+							<div class="hed_on">Special</div>
+							<div id="comb_1_14" class="cll_off"><span id="comb_1_14_arw" class="ind_on" style="display:none;"></span>14. Cloak</div>
+							<div id="comb_1_15" class="cll_off"><span id="comb_1_15_arw" class="ind_on" style="display:none;"></span>15. Hold Your Fire</div>
+						</div>
+-->
+					</div>
+					<div id="comb_2_box" class="exp" style="display:block;">
+
+						<img src="images/dsp_comb_2.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_on">Formation<span class="tim">00:09.29</span></div>
+							<div id="comb_2_0" class="cll_off"><span id="comb_2_0_arw" class="ind_on" style="display:none;"></span>1. Formate With...&nbsp;&nbsp;<span class="trg">Alpha Wing Leader</span></div>
+							<div class="hed_on">Movement<span class="tim">00:10.18</span></div>
+							<div id="comb_2_1" class="cll_off"><span id="comb_2_1_arw" class="ind_on" style="display:none;"></span>2. Dock With...&nbsp;&nbsp;<span class="trg">Commerce Station</span></div>
+						</div>
+-->
+					</div>
+				</div>
+			</div>
+			<div id="repr" class="exp" style="display:none;">
+				<div id="repr_ctl" style="left:230px;top:4px;width:26px;height:100px;">
+					<div id="repr_0" class="but_vrt_on" style="left:0px;top:0px;" onclick="but_sw('repr_0',3,0);but_tg('repr_0');box_sw('repr_0',3,0)"><img src="images/icon_repr_0.png" title="Weapons"/></div>
+					<div id="repr_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('repr_1',3,0);but_tg('repr_1');box_sw('repr_1',3,0)"><img src="images/icon_repr_1.png" title="Engines"/></div>
+					<div id="repr_2" class="but_vrt_off" style="left:0px;top:68px;" onclick="but_sw('repr_2',3,0);but_tg('repr_2');box_sw('repr_2',3,0)"><img src="images/icon_repr_2.png" title="Subsystems/Components"/></div>
+				</div>
+				<div id="repr_cnt" class="vdu_3_box">
+					<div id="repr_0_box" class="exp" style="display:block;">
+
+						<img src="images/dsp_repr_0.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_on">Weapons</div>
+							<div id="repr_0_0" class="cll_off"><span id="comb_0_0_arw" class="ind_on" style="display:none;"></span>1. Ion Beam<span class="dst_off">87%</span></div>
+							<div id="repr_0_1" class="cll_on"><span id="comb_0_1_arw" class="ind_on" style="display:block;"></span>2. Meson Blaster<span class="dst_on">95%</span></div>
+							<div id="repr_0_2" class="cll_off"><span id="comb_0_2_arw" class="ind_on" style="display:none;"></span>3. Tractor Beam<span class="dst_off">43%</span></div>
+							<div class="hed_off">Engines</div>
+							<div id="repr_0_3" class="cll_on"><span id="comb_0_3_arw" class="ind_on" style="display:block;"></span>4. Main Aft Thruster<span class="dst_on">57%</span></div>
+							<div class="hed_off">Components</div>
+							<div id="repr_0_4" class="cll_on"><span id="comb_0_4_arw" class="ind_on" style="display:block;"></span>5. Sensors<span class="dst_on">88%</span></div>
+							<div id="repr_0_5" class="cll_off"><span id="comb_0_5_arw" class="ind_on" style="display:none;"></span>6. Targeting Computer<span class="dst_off">92%</span></div>
+						</div>
+-->
+					</div>
+					<div id="repr_1_box" class="exp" style="display:none;">
+
+						<img src="images/dsp_repr_1.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_off">Weapons</div>
+							<div id="repr_1_0" class="cll_off"><span id="repr_1_0_arw" class="ind_on" style="display:none;"></span>1. Ion Beam<span class="dst_off">87%</span></div>
+							<div id="repr_1_1" class="cll_on"><span id="repr_1_1_arw" class="ind_on" style="display:block;"></span>2. Meson Blaster<span class="dst_on">95%</span></div>
+							<div id="repr_1_2" class="cll_off"><span id="repr_1_2_arw" class="ind_on" style="display:none;"></span>3. Tractor Beam<span class="dst_off">43%</span></div>
+							<div class="hed_on">Engines</div>
+							<div id="repr_1_3" class="cll_on"><span id="repr_1_3_arw" class="ind_on" style="display:block;"></span>4. Main Aft Thruster<span class="dst_on">57%</span></div>
+							<div class="hed_off">Components</div>
+							<div id="repr_1_4" class="cll_on"><span id="repr_1_4_arw" class="ind_on" style="display:block;"></span>5. Sensors<span class="dst_on">88%</span></div>
+							<div id="repr_1_5" class="cll_off"><span id="repr_1_5_arw" class="ind_on" style="display:none;"></span>6. Targeting Computer<span class="dst_off">92%</span></div>
+						</div>
+-->
+					</div>
+					<div id="repr_2_box" class="exp" style="display:none;">
+
+						<img src="images/dsp_repr_2.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_off">Weapons</div>
+							<div id="repr_2_0" class="cll_off"><span id="repr_2_0_arw" class="ind_on" style="display:none;"></span>1. Ion Beam<span class="dst_off">87%</span></div>
+							<div id="repr_2_1" class="cll_on"><span id="repr_2_1_arw" class="ind_on" style="display:block;"></span>2. Meson Blaster<span class="dst_on">95%</span></div>
+							<div id="repr_2_2" class="cll_off"><span id="repr_2_2_arw" class="ind_on" style="display:none;"></span>3. Tractor Beam<span class="dst_off">43%</span></div>
+							<div class="hed_off">Engines</div>
+							<div id="repr_2_3" class="cll_on"><span id="repr_2_3_arw" class="ind_on" style="display:block;"></span>4. Main Aft Thruster<span class="dst_on">57%</span></div>
+							<div class="hed_on">Components</div>
+							<div id="repr_2_4" class="cll_on"><span id="repr_2_4_arw" class="ind_on" style="display:block;"></span>5. Sensors<span class="dst_on">88%</span></div>
+							<div id="repr_2_5" class="cll_off"><span id="repr_2_5_arw" class="ind_on" style="display:none;"></span>6. Targeting Computer<span class="dst_off">92%</span></div>
+						</div>
+-->
+					</div>
+				</div>
+			</div>
+			<div id="hngr" class="exp" style="display:none;">
+				<div id="hngr_ctl" style="left:230px;top:4px;width:26px;height:100px;">
+					<div id="hngr_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('hngr_0',3,0);but_tg('hngr_0')"><img src="images/icon_hngr_0.png" title="Launch"/></div>
+					<div id="hngr_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('hngr_1',3,0);but_tg('hngr_1')"><img src="images/icon_hngr_1.png" title="Repair"/></div>
+					<div id="hngr_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_sw('hngr_2',3,0);but_tg('hngr_2')"><img src="images/icon_hngr_2.png" title="Reload"/></div>
+				</div>
+				<div id="hngr_cnt" class="vdu_3_box">
+					<div id="hngr_0_box" class="exp" style="display:block;">
+
+						<img src="images/dsp_hngr_0.png" style="top:4px;left:2px;"/>
+<!--
+						<div style="top:4px;left:2px;padding-right:2;width:226px;height:162px;overflow:auto;">
+							<div class="hed_on">Small</div>
+							<div id="hngr_0_0" class="cll_off"><span id="hngr_0_0_arw" class="ind_on" style="display:none;"></span>1. Probe 1<span class="lod_off"></span><span class="dst_off">100%</span></div>
+							<div id="hngr_0_1" class="cll_off"><span id="hngr_0_1_arw" class="ind_on" style="display:none;"></span>2. Probe 2<span class="lod_off"></span><span class="dst_off">100%</span></div>
+							<div id="hngr_0_2" class="cll_off"><span id="hngr_0_2_arw" class="ind_on" style="display:none;"></span>3. Probe 3<span class="lod_off"></span><span class="dst_off">100%</span></div>
+							<div class="hed_on">Medium</div>
+							<div id="hngr_0_3" class="cll_off"><span id="hngr_0_3_arw" class="ind_on" style="display:none;"></span>4. Fighter 1<span class="lod_off">(reload)</span><span class="dst_off">95%</span></div>
+							<div class="hed_on">Larger</div>
+							<div id="hngr_0_4" class="cll_off"><span id="hngr_0_4_arw" class="ind_on" style="display:none;"></span>5. Corvette 1<span class="lod_off"></span><span class="dst_off">100%</span></div>
+							<div id="hngr_0_5" class="cll_off"><span id="hngr_0_5_arw" class="ind_on" style="display:none;"></span>6. Corvette 2<span class="lod_off">(reload)</span><span class="dst_off">98%</span></div>
+						</div>
+-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_4" class="vdu_off" style="left:788px;top:16px;width:220px;height:192px;">
+			<div id="chrt" class="exp" style="display:none;">
+				<div id="chrt_ctl" style="left:0px;top:4px;width:26px;height:134px;">
+					<div id="chrt_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_tg('chrt_0')"><img src="images/icon_chrt_0.png" title="Friendly"/></div>
+					<div id="chrt_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_tg('chrt_1')"><img src="images/icon_chrt_1.png" title="Neutral"/></div>
+					<div id="chrt_2" class="but_vrt_off" style="left:0px;top:68px;" onclick="but_tg('chrt_2')"><img src="images/icon_chrt_2.png" title="Enemy"/></div>
+					<div id="chrt_3" class="but_vrt_on" style="left:0px;top:102px;" onclick="but_tg('chrt_3')"><img src="images/icon_chrt_3.png" title="Nav"/></div>
+				</div>
+				<div id="chrt_cnt" class="vdu_4_box">
+					<div id="chrt_0_box" class="exp" style="display:block;">
+						<img src="images/dsp_map.png" style="left:0px;top:0px;"/>
+						<div id="chrt_0_0" class="but_mov_sml_up_off" style="left:30px;top:150px;" onmousedown="but_dn('chrt_0_0')" onmouseup="but_up('chrt_0_0')" title="Pan Forward"></div>
+						<div id="chrt_0_1" class="but_mov_sml_dwn_off" style="left:136px;top:150px;" onmousedown="but_dn('chrt_0_1')" onmouseup="but_up('chrt_0_1')" title="Pan Backward"></div>
+						<div id="chrt_0_2" class="but_mov_sml_clw_off" style="left:2px;top:150px;" onmousedown="but_dn('chrt_0_2')" onmouseup="but_up('chrt_0_2')" title="Rotate Clockwise"></div>
+						<div id="chrt_0_3" class="but_mov_sml_ctr_off" style="left:164px;top:150px;" onmousedown="but_dn('chrt_0_3')" onmouseup="but_up('chrt_0_3')" title="Rotate Counter-clockwise"></div>
+						<div id="chrt_0_4" class="but_mth_pls_off" style="left:64px;top:150px;" onmousedown="but_dn('chrt_0_4')" onmouseup="but_up('chrt_0_4')" title="Zoom In"></div>
+						<div id="chrt_0_5" class="but_mth_mns_off" style="left:98px;top:150px;" onmousedown="but_dn('chrt_0_5')" onmouseup="but_up('chrt_0_5')" title="Zoom Out"></div>
+					</div>
+				</div>
+			</div>
+			<div id="sens" class="exp" style="display:block;">
+				<div id="sens_ctl" style="left:0px;top:4px;width:26px;height:134px;">
+					<div id="sens_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('sens_0',4,0);but_tg('sens_0');box_sw('sens_0',4,0)"><img src="images/icon_sens_0.png" title="List"/></div>
+					<div id="sens_1" class="but_vrt_off" style="left:0px;top:34px;" onclick="but_sw('sens_1',4,0);but_tg('sens_1');box_sw('sens_1',4,0)"><img src="images/icon_sens_1.png" title="3D"/></div>
+					<div id="sens_2" class="but_vrt_on" style="left:0px;top:68px;" onclick="but_sw('sens_2',4,0);but_tg('sens_2');box_sw('sens_2',4,0)"><img src="images/icon_sens_2.png" title="Front"/></div>
+					<div id="sens_3" class="but_vrt_off" style="left:0px;top:102px;" onclick="but_sw('sens_3',4,0);but_tg('sens_3');box_sw('sens_3',4,0)"><img src="images/icon_sens_3.png" title="Overhead"/></div>
+				</div>
+				<div id="sens_cnt" class="vdu_4_box">
+					<div id="sens_0_box" class="exp" style="display:none;">
+
+						<img src="images/dsp_sens_0.png" style="top:4px;right:2px;"/>
+<!--
+						<div style="top:4px;right:2;padding-right:2;width:190px;height:186px;overflow:auto;">
+							<div class="hed_on">Enemy Ships</div>
+							<div id="sens_0_0" class="cll_on"><span id="sens_0_0_arw" class="ind_on" style="display:block;"></span>1. Marauder<span class="dst_on">2.8e8m</span></div>
+							<div id="sens_0_1" class="cll_off"><span id="sens_0_1_arw" class="ind_on" style="display:none;"></span>2. Marauder<span class="dst_off">3.6e8m</span></div>
+							<div id="sens_0_2" class="cll_off"><span id="sens_0_2_arw" class="ind_on" style="display:none;"></span>3. Marauder<span class="dst_off">4.7e8m</span></div>
+							<div class="hed_on">Friendly Ships</div>
+							<div id="sens_0_3" class="cll_off"><span id="sens_0_3_arw" class="ind_on" style="display:none;"></span>4. Marauder<span class="dst_off">1.1e8m</span></div>
+							<div id="sens_0_4" class="cll_off"><span id="sens_0_4_arw" class="ind_on" style="display:none;"></span>5. Marauder<span class="dst_off">3.1e8m</span></div>
+							<div id="sens_0_5" class="cll_off"><span id="sens_0_5_arw" class="ind_on" style="display:none;"></span>6. Marauder<span class="dst_off">4.3e8m</span></div>
+							<div class="hed_on">Neutral Ships</div>
+							<div id="sens_0_6" class="cll_off"><span id="sens_0_6_arw" class="ind_on" style="display:none;"></span>7. Marauder<span class="dst_off">8.9e7m</span></div>
+							<div id="sens_0_7" class="cll_off"><span id="sens_0_7_arw" class="ind_on" style="display:none;"></span>8. Marauder<span class="dst_off">2.1e8m</span></div>
+							<div class="hed_on">NAV Objects</div>
+							<div id="sens_0_8" class="cll_off"><span id="sens_0_8_arw" class="ind_on" style="display:none;"></span>9. Marauder<span class="dst_off">4.3e9m</span></div>
+							<div id="sens_0_9" class="cll_off"><span id="sens_0_9_arw" class="ind_on" style="display:none;"></span>10. Marauder<span class="dst_off">7.6e9m</span></div>
+						</div>
+-->
+					</div>
+					<div id="sens_1_box" class="exp" style="display:none;">
+						<img src="images/dsp_sens_1.png" style="left:16px;top:16px;"/>
+						<div id="sens_1_0" class="but_mov_clw_off" style="left:30px;top:150px;" onmousedown="but_dn('sens_1_0')" onmouseup="but_up('sens_1_0')" title="Rotate"></div>
+						<div id="sens_1_1" class="but_mov_ctr_off" style="left:130px;top:150px;" onmousedown="but_dn('sens_1_1')" onmouseup="but_up('sens_1_1')" title="Rotate"></div>
+					</div>
+					<div id="sens_2_box" class="exp" style="display:block;">
+						<img src="images/dsp_sens_2.png" style="left:16px;top:16px;"/>
+					</div>
+					<div id="sens_3_box" class="exp" style="display:none;">
+						<img src="images/dsp_sens_3.png" style="left:16px;top:16px;"/>
+					</div>
+				</div>
+			</div>
+			<div id="cmra" class="exp" style="display:none;">
+				<div id="cmra_ctl" style="left:0px;top:4px;width:26px;height:134px;">
+					<div id="cmra_0" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_sw('cmra_0',4,0);but_tg('cmra_0');box_sw('cmra_0',4,0);zom_on()"><img src="images/icon_cmra_0.png" title="Zoom/Scope Camera"/></div>
+					<div id="cmra_1" class="but_vrt_on" style="left:0px;top:34px;" onclick="but_sw('cmra_1',4,0);but_tg('cmra_1');box_sw('cmra_1',4,0);zom_on()"><img src="images/icon_cmra_1.png" title="Chase Camera"/></div>
+					<div id="cmra_2" class="but_vrt_off" style="left:0px;top:68px;" onclick="but_sw('cmra_2',4,0);but_tg('cmra_2');box_sw('cmra_2',4,0);zom_on()"><img src="images/icon_cmra_2.png" title="View to Target"/></div>
+					<div id="cmra_3" class="but_vrt_off" style="left:0px;top:102px;" onclick="but_sw('cmra_3',4,0);but_tg('cmra_3');box_sw('cmra_3',4,0);zom_on()"><img src="images/icon_cmra_3.png" title="View from Target"/></div>
+				</div>
+				<div id="cmra_cnt" class="vdu_4_box">
+					<div id="cmra_0_box" class="exp" style="display:none;">
+						<img src="images/dsp_cmra_0.png"/>
+					</div>
+					<div id="cmra_1_box" class="exp" style="display:block;">
+					</div>
+					<div id="cmra_2_box" class="exp" style="display:none;">
+					</div>
+					<div id="cmra_3_box" class="exp" style="display:none;">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="vdu_5" class="vdu_on" style="left:16px;top:368px;width:656px;height:384px;display:none;">
+			<div id="comm_lrg" class="exp" style="display:block;">
+				<div id="prv_0" class="but_prv_off" style="left:460px;top:11px;" onclick="pnl_sw('5_2')" onmousedown="but_dn('prv_0')" onmouseup="but_up('prv_0')" title="Cycle Pages"></div>
+				<div id="nxt_0" class="but_nxt_off" style="left:487px;top:11px;" onclick="pnl_sw('5_1')" onmousedown="but_dn('nxt_0')" onmouseup="but_up('nxt_0')" title="Cycle Pages"></div>
+				<div id="min_0" class="but_min_off" style="left:543px;top:11px;" onclick="min_sw();pnl_sw('1_0')" onmousedown="but_dn('min_0')" onmouseup="but_up('min_0')" title="Minimize Window"></div>
+				<div id="cls_3" class="but_cls_off" style="left:629px;top:6px;" onclick="min_sw();pnl_sw('1_0');pnl_sw('1_0')" onmousedown="but_dn('cls_3')" onmouseup="but_up('cls_3')" title="Close Window"></div>
+				<div id="comm_lrg_ctl" style="left:597px;top:87px;width:54px;height:292px;">
+					<div id="comm_lrg_0" class="but_vrt_off" style="left:28px;top:0px;" onclick="but_sw('comm_lrg_0',4,0);but_sw('comm_0',3,0);but_tg('comm_lrg_0');but_tg('comm_0');"><img src="images/icon_comm_0.png" title="Target Chat"/></div>
+					<div id="comm_lrg_1" class="but_vrt_off" style="left:28px;top:34px;" onclick="but_sw('comm_lrg_1',4,0);but_sw('comm_1',3,0);but_tg('comm_lrg_1');but_tg('comm_1');"><img src="images/icon_comm_1.png" title="Wingmen Chat"/></div>
+					<div id="comm_lrg_2" class="but_vrt_on" style="left:28px;top:68px;" onclick="but_sw('comm_lrg_2',4,0);but_sw('comm_2',3,0);but_tg('comm_lrg_2');but_tg('comm_2');"><img src="images/icon_comm_2.png" title="Broadcast Chat"/></div>
+					<div id="comm_lrg_3" class="but_vrt_off" style="left:28px;top:102px;" onclick="but_sw('comm_lrg_3',4,0);but_sw('comm_0',3,0);but_tg('comm_lrg_3');"><img src="images/icon_comm_3.png" title="Anonymous Message?"/></div>
+					<div id="comm_lrg_4" class="but_vrt_off" style="left:28px;top:146px;" onclick="but_sw('comm_lrg_4',3,4);but_tg('comm_lrg_4');"><img src="images/icon_comm_4.png" title="Single Chat?"/></div>
+					<div id="comm_lrg_5" class="but_vrt_on" style="left:28px;top:180px;" onclick="but_sw('comm_lrg_5',3,4);but_tg('comm_lrg_5');"><img src="images/icon_comm_5.png" title="Group Chat?"/></div>
+					<div id="comm_lrg_6" class="but_vrt_off" style="left:28px;top:214px;" onclick="but_sw('comm_lrg_6',3,4);but_tg('comm_lrg_6');"><img src="images/icon_comm_6.png" title="Can't Remember What"/></div>
+					<div id="comm_lrg_7" class="but_vrt_off" style="left:0px;top:146px;" onmousedown="but_dn('comm_lrg_7')" onmouseup="but_up('comm_lrg_7')"><img src="images/icon_comm_7.png" title="Can't Remember What"/></div>
+					<div id="comm_lrg_8" class="but_vrt_off" style="left:0px;top:180px;" onmousedown="but_dn('comm_lrg_8')" onmouseup="but_up('comm_lrg_8')"><img src="images/icon_comm_8.png" title="Add/Kick User from Chatroom?"/></div>
+					<div id="comm_lrg_9" class="but_vrt_off" style="left:0px;top:214px;" onmousedown="but_dn('comm_lrg_9')" onmouseup="but_up('comm_lrg_9')"><img src="images/icon_comm_9.png" title="Can't Remember What"/></div>
+				</div>
+				<div id="comm_lrg_cnt" class="vdu_5_box">
+				</div>
+			</div>
+			<div id="invt_lrg" class="exp" style="display:none;">
+				<div id="prv_1" class="but_prv_off" style="left:460px;top:11px;" onclick="pnl_sw('5_0')" onmousedown="but_dn('prv_1')" onmouseup="but_up('prv_1')" title="Cycle Pages"></div>
+				<div id="nxt_1" class="but_nxt_off" style="left:487px;top:11px;" onclick="pnl_sw('5_2')" onmousedown="but_dn('nxt_1')" onmouseup="but_up('nxt_1')" title="Cycle Pages"></div>
+				<div id="min_1" class="but_min_off" style="left:543px;top:11px;" onclick="min_sw();pnl_sw('1_1')" onmousedown="but_dn('min_1')" onmouseup="but_up('min_1')" title="Minimize Window"></div>
+				<div id="cls_4" class="but_cls_off" style="left:629px;top:6px;" onclick="min_sw();pnl_sw('1_1');pnl_sw('1_1')" onmousedown="but_dn('cls_4')" onmouseup="but_up('cls_4')" title="Close Window"></div>
+				<div id="invt_lrg_ctl" style="left:597px;top:87px;width:54px;height:292px;">
+					<div id="invt_lrg_0" class="but_vrt_off" style="left:28px;top:0px;" onclick="but_tg('invt_lrg_0')"><img src="images/icon_invt_0.png" title="Passengers"/></div>
+					<div id="invt_lrg_1" class="but_vrt_off" style="left:28px;top:34px;" onclick="but_tg('invt_lrg_1')"><img src="images/icon_invt_1.png" title="Trade Goods"/></div>
+					<div id="invt_lrg_2" class="but_vrt_on" style="left:28px;top:68px;" onclick="but_tg('invt_lrg_2')"><img src="images/icon_invt_2.png" title="Ships"/></div>
+					<div id="invt_lrg_3" class="but_vrt_off" style="left:28px;top:102px;" onclick="but_tg('invt_lrg_3')"><img src="images/icon_invt_3.png" title="Weapons"/></div>
+					<div id="invt_lrg_4" class="but_vrt_off" style="left:28px;top:136px;" onclick="but_tg('invt_lrg_4')"><img src="images/icon_invt_4.png" title="Research"/></div>
+					<div id="invt_lrg_5" class="but_vrt_on" style="left:28px;top:192px;" onclick="but_tg('invt_lrg_5')"><img src="images/icon_invt_5.png" title="Contraband"/></div>
+					<div id="invt_lrg_6" class="but_vrt_off" style="left:28px;top:226px;" onclick="but_tg('invt_lrg_6')"><img src="images/icon_invt_6.png" title="Radioactive Materials"/></div>
+					<div id="invt_lrg_15" class="but_vrt_off" style="left:28px;top:260px;" onclick="but_tg('invt_lrg_15')"><img src="images/icon_invt_15.png" title="Temperature-Sensistive Materials"/></div>
+					<div id="invt_lrg_7" class="but_vrt_off" style="left:0px;top:0px;" onclick="but_tg('invt_lrg_7')"><img src="images/icon_invt_7.png" title="Food Stuffs"/></div>
+					<div id="invt_lrg_8" class="but_vrt_on" style="left:0px;top:34px;" onclick="but_tg('invt_lrg_8')"><img src="images/icon_invt_8.png" title="Electronics"/></div>
+					<div id="invt_lrg_9" class="but_vrt_off" style="left:0px;top:68px;" onclick="but_tg('invt_lrg_9')"><img src="images/icon_invt_9.png" title="Fine Art"/></div>
+					<div id="invt_lrg_10" class="but_vrt_off" style="left:0px;top:102px;" onclick="but_tg('invt_lrg_10')"><img src="images/icon_invt_10.png" title="Pets"/></div>
+					<div id="invt_lrg_11" class="but_vrt_on" style="left:0px;top:136px;" onclick="but_tg('invt_lrg_11')"><img src="images/icon_invt_11.png" title="Liquids"/></div>
+					<div id="invt_lrg_12" class="but_vrt_off" style="left:0px;top:192px;" onclick="but_tg('invt_lrg_12')"><img src="images/icon_invt_12.png" title="Entertainment"/></div>
+					<div id="invt_lrg_13" class="but_vrt_off" style="left:0px;top:226px;" onclick="but_tg('invt_lrg_13')"><img src="images/icon_invt_13.png" title="Biohazardous Materials"/></div>
+					<div id="invt_lrg_14" class="but_vrt_off" style="left:0px;top:260px;" onclick="but_tg('invt_lrg_14')"><img src="images/icon_invt_14.png" title="Time-Sensitive Materials"/></div>
+				</div>
+				<div id="invt_lrg_ctl2" style="left:5px;top:353px;width:592px;height:26px;">
+					<div id="invt_lrg_16" class="but_hrz_off" style="left:538px;top:0px;" onmousedown="but_dn('invt_lrg_16')" onmouseup="but_up('invt_lrg_16')"><img src="images/icon_dump.png" title="Jettison Item"/></div>
+				</div>
+				<div id="invt_lrg_cnt" class="vdu_5_box">
+				</div>
+			</div>
+			<div id="info_lrg" class="exp" style="display:none;">
+				<div id="prv_2" class="but_prv_off" style="left:460px;top:11px;" onclick="pnl_sw('5_1')" onmousedown="but_dn('prv_2')" onmouseup="but_up('prv_2')" title="Cycle Pages"></div>
+				<div id="nxt_2" class="but_nxt_off" style="left:487px;top:11px;" onclick="pnl_sw('5_0')" onmousedown="but_dn('nxt_2')" onmouseup="but_up('nxt_2')" title="Cycle Pages"></div>
+				<div id="min_2" class="but_min_off" style="left:543px;top:11px;" onclick="min_sw()" onmousedown="but_dn('min_2')" onmouseup="but_up('min_2')" title="Minimize Window"></div>
+				<div id="cls_5" class="but_cls_off" style="left:629px;top:6px;" onclick="min_sw();pnl_sw('1_2');pnl_sw('1_2')" onmousedown="but_dn('cls_5')" onmouseup="but_up('cls_5')" title="Close Window"></div>
+				<div id="info_lrg_ctl" style="left:597px;top:87px;width:54px;height:292px;">
+					<div id="info_lrg_0" class="but_vrt_off" style="left:28px;top:0px;" onclick="but_sw('info_lrg_0',8,0);but_sw('info_0',3,0);but_tg('info_lrg_0');but_tg('info_0');"><img src="images/icon_info_0.png" title="Reputations & Rankings"/></div>
+					<div id="info_lrg_1" class="but_vrt_off" style="left:28px;top:34px;" onclick="but_sw('info_lrg_1',8,0);but_sw('info_1',3,0);but_tg('info_lrg_1');but_tg('info_1');"><img src="images/icon_info_1.png" title="Missions"/></div>
+					<div id="info_lrg_2" class="but_vrt_on" style="left:28px;top:68px;" onclick="but_sw('info_lrg_2',8,0);but_sw('info_2',3,0);but_tg('info_lrg_2');but_tg('info_2');"><img src="images/icon_info_2.png" title="Personal Notes"/></div>
+					<div id="info_lrg_3" class="but_vrt_off" style="left:28px;top:112px;" onclick="but_sw('info_lrg_3',8,0);but_sw('info_0',3,0);but_tg('info_lrg_3');"><img src="images/icon_info_3.png" title="Logbook"/></div>
+					<div id="info_lrg_4" class="but_vrt_off" style="left:28px;top:146px;" onclick="but_sw('info_lrg_4',8,0);but_tg('info_lrg_4');"><img src="images/icon_info_4.png" title="Search Engine"/></div>
+					<div id="info_lrg_5" class="but_vrt_off" style="left:28px;top:180px;" onclick="but_sw('info_lrg_5',8,0);but_tg('info_lrg_5');"><img src="images/icon_info_5.png" title="Acquired Knowledge"/></div>
+					<div id="info_lrg_6" class="but_vrt_off" style="left:28px;top:224px;" onclick="but_sw('info_lrg_6',8,0);but_tg('info_lrg_6');"><img src="images/icon_info_6.png" title="Acquired Data Disks"/></div>
+					<div id="info_lrg_7" class="but_vrt_off" style="left:28px;top:258px;" onclick="but_sw('info_lrg_7',8,0);but_tg('info_lrg_7');"><img src="images/icon_info_7.png" title="Emails"/></div>
+				</div>
+				<div id="info_lrg_ctl2" style="left:5px;top:353px;width:592px;height:26px;">
+					<div id="info_lrg_8" class="but_hrz_off" style="left:538px;top:0px;" onmousedown="but_dn('info_lrg_8')" onmouseup="but_up('info_lrg_8')"><img src="images/icon_dump.png" title="Delete Item"/></div>
+				</div>
+				<div id="info_lrg_cnt" class="vdu_5_box">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

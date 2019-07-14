@@ -1,0 +1,86 @@
+div
+{font-family:Verdana,sans-serif;font-size:8pt;font-weight:normal;cursor:default;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;display:inline-block;}
+body
+{background:#000000 url(images/vegastrike040_013.jpg);}
+
+.but_tab_on
+{background:url(images/but_tab_on.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;width:64px;height:17px;}
+.but_tab_off
+{background:url(images/but_tab_off.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;width:64px;height:17px;}
+.but_tab_ond
+{background:url(images/but_tab_ond.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;}
+.but_tab_offd
+{background:url(images/but_tab_offd.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;}
+
+.but_clo_on
+{background:url(images/but_clo_on.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;width:12px;height:17px;}	/* 12x17 or 16x16*/
+.but_clo_off
+{background:url(images/but_clo_off.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;width:12px;height:17px;}	/* 12x17 or 16x16*/
+.but_clr_on
+{background:url(images/but_clr_on.png);text-align:center;font-weight:bold;color:#ffffff;font-size:10pt;width:64px;height:17px;}
+.but_clr_off
+{text-align:center;font-weight:bold;color:#ffffff;font-size:10pt;width:64px;height:17px;}
+.but_sml_off
+{background:url(images/but_sml_off.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;}
+.vdu_sel
+{overflow:auto;background:#004000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;scrollbar-face-color:#004000;scrollbar-shadow-color:#00a000;scrollbar-highlight-color:#00a000;scrollbar-3dlight-color:#00a000;scrollbar-darkshadow-color:#004000;scrollbar-track-color:#004000;scrollbar-arrow-color:#00a000;}	/*-ms-overflow-style:-ms-autohiding-scrollbar;*/
+.vdu_act
+{overflow:auto;background:#404000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;scrollbar-face-color:#404000;scrollbar-shadow-color:#a0a000;scrollbar-highlight-color:#a0a000;scrollbar-3dlight-color:#a0a000;scrollbar-darkshadow-color:#404000;scrollbar-track-color:#404000;scrollbar-arrow-color:#a0a000;}	/*-ms-overflow-style:-ms-autohiding-scrollbar;*/
+.vdu_on
+{filter:alpha(opacity=100);-moz-opacity:1.0;opacity:1.0;}
+.vdu_off
+{filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;}
+.vdu_trd
+{filter:alpha(opacity=33);-moz-opacity:0.33;opacity:0.33;}
+.vdu_2
+{background:url(images/vdu_2.png);}
+.vdu_3
+{background:url(images/vdu_3.png);}
+.vdu_4
+{background:url(images/vdu_3.png);}
+.vdu_5
+{background:url(images/vdu_5.png);}
+.vdu_6
+{background:url(images/vdu_5.png);}
+.vdu_2_bnk
+{background:url(images/vdu_2_bnk.png);}
+.vdu_3_bnk
+{background:url(images/vdu_3_bnk.png);}
+.vdu_4_bnk
+{background:url(images/vdu_3_bnk.png);}
+.vdu_5_bnk
+{background:url(images/vdu_5_bnk.png);}
+.vdu_6_bnk
+{background:url(images/vdu_5_bnk.png);}
+.txt
+{}	/*display:inline;*/
+.hed
+{height:16px;border-style:solid;border-width:0px 2px 2px 0px;color:#000000;font-weight:bold;}
+.cll
+{height:16px;padding:1;}
+.sel
+{border-color:#004000;border-style:solid;border-width:0px 2px 2px 0px;}
+.act
+{border-color:#404000;border-style:solid;border-width:0px 2px 2px 0px;}
+.cen
+{text-align:center;}
+.lft
+{text-align:left;}
+.bgrn
+{background:#00a000;border-color:#004000;}
+.borg
+{background:#a0a000;border-color:#404000;}
+.tgrn
+{color:#00c000;}
+.torg
+{color:#c0c000;}
+.twht
+{color:#ffffff;}
+.tyel
+{color:#ffff00;}
+#friend_sel
+{background:fixed #004000;}
+#hostile_sel
+{background:fixed #004000;}
+#nav_sel
+{background:fixed #004000;}

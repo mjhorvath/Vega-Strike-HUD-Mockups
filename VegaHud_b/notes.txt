@@ -1,0 +1,5 @@
+Use "dsp_radar2.png"; but, create a mask so that it blends into the background.
+Images should be converted from 8-bit to 32-bit transparency, where needed.
+Use vector graphics (SVG) wherever possible.
+Scroll-bars should be 16px wide.
+Create a display for attitude, as well.
