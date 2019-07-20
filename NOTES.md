@@ -7,3 +7,7 @@
 * Note: the 'display' property of a container is inherited. Should test this further.
 * Note: filter opacity is cumulative in Mozilla, but not in IE. By moving the individual panes outside the VDUs, the behavior will be the same in both programs.
 * Scrollbar styling only works in Internet Explorer for now.
+
+## VegaHud B
+
+## VegaHud C
