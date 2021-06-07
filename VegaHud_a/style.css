@@ -1,7 +1,7 @@
 div
 {font-family:Verdana,sans-serif;font-size:8pt;font-weight:normal;cursor:default;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;display:inline-block;}
 body
-{background:#404040;margin:0;color:#ffffff;}
+{background:#000000 url(images/vegastrike040_013.jpg);background-repeat:no-repeat;}
 
 .but_tab_on
 {background:url(images/but_tab_on.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;width:64px;height:17px;}
@@ -23,9 +23,23 @@ body
 .but_sml_off
 {background:url(images/but_sml_off.png);text-align:center;font-weight:bold;color:#000000;font-size:10pt;}
 .vdu_sel
-{overflow:auto;background:#004000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;scrollbar-face-color:#004000;scrollbar-shadow-color:#00a000;scrollbar-highlight-color:#00a000;scrollbar-3dlight-color:#00a000;scrollbar-darkshadow-color:#004000;scrollbar-track-color:#004000;scrollbar-arrow-color:#00a000;}	/*-ms-overflow-style:-ms-autohiding-scrollbar;*/
+{overflow:auto;background:#004000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;}	/*-ms-overflow-style:-ms-autohiding-scrollbar;*/
 .vdu_act
-{overflow:auto;background:#404000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;scrollbar-face-color:#404000;scrollbar-shadow-color:#a0a000;scrollbar-highlight-color:#a0a000;scrollbar-3dlight-color:#a0a000;scrollbar-darkshadow-color:#404000;scrollbar-track-color:#404000;scrollbar-arrow-color:#a0a000;}	/*-ms-overflow-style:-ms-autohiding-scrollbar;*/
+{overflow:auto;background:#404000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;}	/*-ms-overflow-style:-ms-autohiding-scrollbar;*/
+
+.vdu_sel::-webkit-scrollbar,.vdu_act::-webkit-scrollbar,.vdu_sel *::-webkit-scrollbar,.vdu_act *::-webkit-scrollbar
+{width:12px;}
+.vdu_sel::-webkit-scrollbar-button,.vdu_act::-webkit-scrollbar-button,.vdu_sel *::-webkit-scrollbar-button,.vdu_act *::-webkit-scrollbar-button
+{display:none;height:12px;}
+.vdu_sel::-webkit-scrollbar,.vdu_sel::-webkit-scrollbar-track,.vdu_sel *::-webkit-scrollbar,.vdu_sel *::-webkit-scrollbar-track
+{background-color:#004000;}
+.vdu_sel::-webkit-scrollbar-thumb,.vdu_sel::-webkit-scrollbar-button,.vdu_sel *::-webkit-scrollbar-thumb,.vdu_sel *::-webkit-scrollbar-button
+{background-color:#00a000;}
+.vdu_act::-webkit-scrollbar,.vdu_act::-webkit-scrollbar-track,.vdu_act *::-webkit-scrollbar,.vdu_act *::-webkit-scrollbar-track
+{background-color:#404000;}
+.vdu_act::-webkit-scrollbar-thumb,.vdu_act::-webkit-scrollbar-button,.vdu_act *::-webkit-scrollbar-thumb,.vdu_act *::-webkit-scrollbar-button
+{background-color:#a0a000;}
+
 .vdu_on
 {filter:alpha(opacity=100);-moz-opacity:1.0;opacity:1.0;}
 .vdu_off
